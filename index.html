@@ -41,7 +41,7 @@
     <a href="#packages">סוגי חבילות</a><a href="#how">איך זה עובד</a><a href="#dest">יעדים</a><a href="#pricing">מחירים</a><a href="#checker">בדיקת תאימות</a><a href="#faq">שאלות</a>
   </div>
   <div class="nav-r">
-    <a class="phone-link" href="tel:0723959737">072-395-9737</a>
+    <a class="phone-link" href="tel:0723959737"><svg class="ic"><use href="#i-call"/></svg>072-395-9737</a>
     <a class="btn btn-primary magnetic" href="#download">הורדת האפליקציה</a>
     <button class="burger" onclick="document.querySelector('.navlinks').style.display='flex'">☰</button>
   </div>
@@ -210,6 +210,7 @@
     <div class="dcard reveal"><img src="assets/dest-dubai.jpg" alt="דובאי"><div class="ov"><div class="cn">🇦🇪 דובאי</div><div class="fr">מ-$4.90 לג׳יגה</div></div></div>
     <div class="dcard reveal"><img src="assets/dest-paris.jpg" alt="צרפת"><div class="ov"><div class="cn">🇫🇷 צרפת</div><div class="fr">מ-$2.49 לג׳יגה</div></div></div>
     <div class="dcard reveal"><img src="assets/dest-tokyo.jpg" alt="יפן"><div class="ov"><div class="cn">🇯🇵 יפן</div><div class="fr">מ-$3.90 לג׳יגה</div></div></div>
+    <div class="dcard reveal"><img src="assets/dest-london.jpg" alt="בריטניה"><div class="ov"><div class="cn">🇬🇧 בריטניה</div><div class="fr">מ-$2.49 לג׳יגה</div></div></div><div class="dcard reveal"><img src="assets/dest-rome.jpg" alt="איטליה"><div class="ov"><div class="cn">🇮🇹 איטליה</div><div class="fr">מ-$2.49 לג׳יגה</div></div></div><div class="dcard reveal"><img src="assets/dest-barcelona.jpg" alt="ספרד"><div class="ov"><div class="cn">🇪🇸 ספרד</div><div class="fr">מ-$2.49 לג׳יגה</div></div></div><div class="dcard reveal"><img src="assets/dest-istanbul.jpg" alt="טורקיה"><div class="ov"><div class="cn">🇹🇷 טורקיה</div><div class="fr">מ-$3.90 לג׳יגה</div></div></div><div class="dcard reveal"><img src="assets/dest-amsterdam.jpg" alt="הולנד"><div class="ov"><div class="cn">🇳🇱 הולנד</div><div class="fr">מ-$2.49 לג׳יגה</div></div></div><div class="dcard reveal"><img src="assets/dest-prague.jpg" alt="צ׳כיה"><div class="ov"><div class="cn">🇨🇿 צ׳כיה</div><div class="fr">מ-$2.49 לג׳יגה</div></div></div>
   </div>
 </div></section>
 
@@ -277,7 +278,7 @@
 <section class="section checker" id="checker"><div class="wrap center">
   <span class="eyebrow reveal"><svg class="ic"><use href="#i-shield"/></svg> בדיקת תאימות</span>
   <h2 class="reveal">האם המכשיר שלכם תומך ב-eSIM?</h2>
-  <p class="lead reveal">בדקו תוך שנייה מתוך מאגר של 200+ דגמים — לפני שאתם טסים.</p>
+  <p class="lead reveal">בדקו תוך שנייה מתוך מאגר של 200+ דגמים — לפני שאתם טסים. רוב המכשירים מ-2019 ומעלה תומכים: אייפון XS ומעלה, Galaxy S20 ומעלה, Pixel 3 ומעלה ועוד.</p>
   <div class="chkframe reveal"><iframe src="assets/checker.html" title="בדיקת תאימות eSIM" loading="lazy"></iframe></div>
   <div class="phys-callout reveal"><span>📱 המכשיר לא תומך ב-eSIM? <b>אין בעיה — יש לנו גם סים פיזי!</b> אותם מחירים, מתחבר לאפליקציה.</span><a class="btn btn-ghost magnetic" href="#physical">לסים הפיזי ←</a></div>
 </div></section>
@@ -298,8 +299,21 @@
     <div class="payg-row reveal"><span class="pf">🇯🇵 יפן</span><span class="pp">$3.90 <small>/GB</small></span></div>
     <div class="payg-row reveal"><span class="pf">🇦🇪 דובאי</span><span class="pp">$4.90 <small>/GB</small></span></div>
   </div>
-  <a class="btn btn-primary magnetic reveal" href="https://app.simtlv.co.il/pricing" target="_blank" rel="noopener" style="margin-top:28px"><svg class="ic"><use href="#i-globe"/></svg> לכל התעריפים · 168 מדינות ←</a>
+  <button class="btn btn-primary magnetic reveal" onclick="openPricing()" style="margin-top:28px"><svg class="ic"><use href="#i-globe"/></svg> לכל התעריפים · רשתות ומחירים לכל מדינה ←</button>
 </div></section>
+
+<!-- PRICING MODAL -->
+<div class="modal" id="pricingModal" onclick="if(event.target===this)closePricing()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div><h3>תעריפי גלישה לפי יעד</h3><p>תשלום לפי שימוש · תמיד ברשתות המובילות בכל מדינה</p></div>
+      <button class="modal-x" onclick="closePricing()" aria-label="סגירה">✕</button>
+    </div>
+    <div class="modal-search"><svg class="ic"><use href="#i-search"/></svg><input id="modalSearch" placeholder="חיפוש מדינה…" autocomplete="off"></div>
+    <div class="modal-tablewrap"><table class="ptable"><thead><tr><th>מדינה</th><th>רשתות מקומיות</th><th>מחיר לג׳יגה</th></tr></thead><tbody id="ptbody"></tbody></table></div>
+    <div class="modal-foot">המחירים החל מ- · היתרה נשמרת לנצח · ל-168 מדינות</div>
+  </div>
+</div>
 
 <!-- DATA CALCULATOR -->
 <section class="section calc" id="calc"><div class="wrap center">
@@ -408,6 +422,11 @@ function copyCoupon(){
 
 /* generic coupon copy (banner) */
 function copyCode(btn,code){try{navigator.clipboard.writeText(code);}catch(e){}var s=btn.querySelector('span'),o=s.textContent;s.textContent='הועתק ✓';setTimeout(function(){s.textContent=o;},1500);}
+var PRICING=[['מונטנגרו','🇲🇪','Crnogorski Telekom, m:tel',1.99],['ארה״ב','🇺🇸','T-Mobile, AT&T',2.52],['יוון','🇬🇷','Cosmote, Vodafone',2.42],['בריטניה','🇬🇧','EE, Vodafone, O2',2.49],['איטליה','🇮🇹','TIM, Vodafone, WindTre',2.49],['צרפת','🇫🇷','Orange, SFR, Bouygues',2.49],['גרמניה','🇩🇪','Telekom, Vodafone, O2',2.49],['ספרד','🇪🇸','Movistar, Vodafone, Orange',2.49],['הולנד','🇳🇱','KPN, Vodafone',2.49],['שוויץ','🇨🇭','Swisscom, Sunrise',2.49],['אוסטריה','🇦🇹','A1, Magenta',2.49],['פורטוגל','🇵🇹','MEO, Vodafone, NOS',2.49],['קפריסין','🇨🇾','Cyta, Epic',2.49],['צ׳כיה','🇨🇿','T-Mobile, O2, Vodafone',2.49],['פולין','🇵🇱','Orange, Play, T-Mobile',2.49],['הונגריה','🇭🇺','Magyar Telekom, Vodafone',2.49],['רומניה','🇷🇴','Orange, Vodafone',2.49],['בולגריה','🇧🇬','A1, Yettel',2.49],['קרואטיה','🇭🇷','HT, A1',2.49],['בלגיה','🇧🇪','Proximus, Orange',2.49],['אירלנד','🇮🇪','Vodafone, Three',2.49],['שוודיה','🇸🇪','Telia, Tele2',2.49],['תאילנד','🇹🇭','AIS, TrueMove',3.9],['יפן','🇯🇵','NTT Docomo, SoftBank',3.9],['טורקיה','🇹🇷','Turkcell, Vodafone',3.9],['גיאורגיה','🇬🇪','Magti, Silknet',3.9],['דרום קוריאה','🇰🇷','SKT, KT',3.9],['סינגפור','🇸🇬','Singtel, StarHub',3.9],['וייטנאם','🇻🇳','Viettel, Vinaphone',3.9],['אוסטרליה','🇦🇺','Telstra, Optus',3.9],['קנדה','🇨🇦','Rogers, Bell',2.9],['מקסיקו','🇲🇽','Telcel, AT&T',3.9],['ברזיל','🇧🇷','Vivo, Claro',3.9],['הודו','🇮🇳','Airtel, Jio',3.9],['איחוד האמירויות','🇦🇪','Etisalat, du',4.9],['מרוקו','🇲🇦','Maroc Telecom, Orange',4.9],['מצרים','🇪🇬','Vodafone, Orange',4.9],['דרום אפריקה','🇿🇦','Vodacom, MTN',4.9]];
+function openPricing(){renderPricing('');document.getElementById('pricingModal').classList.add('open');document.body.style.overflow='hidden';var mi=document.getElementById('modalSearch');if(mi)mi.value='';}
+function closePricing(){document.getElementById('pricingModal').classList.remove('open');document.body.style.overflow='';}
+function renderPricing(q){q=(q||'').trim();var b=document.getElementById('ptbody');var rows=PRICING.filter(function(p){return !q||p[0].indexOf(q)>-1;});b.innerHTML=rows.map(function(p){return '<tr><td><span class="fl">'+p[1]+'</span>'+p[0]+'</td><td class="net">'+p[2]+'</td><td class="price">מ-$'+p[3].toFixed(2)+'</td></tr>';}).join('')||'<tr><td colspan="3" style="text-align:center;color:var(--muted);padding:20px">לא נמצא — כל 168 היעדים באפליקציה</td></tr>';}
+(function(){var mi=document.getElementById('modalSearch');if(mi)mi.addEventListener('input',function(){renderPricing(mi.value);});document.addEventListener('keydown',function(e){if(e.key==='Escape')closePricing();});})();
 
 /* shared destinations dataset — country, flag, GigaBoost/PAYG $ per GB */
 var DESTS=[['מונטנגרו','🇲🇪',1.99],['ארה״ב','🇺🇸',2.49],['יוון','🇬🇷',2.49],['איטליה','🇮🇹',2.49],['בריטניה','🇬🇧',2.49],['צרפת','🇫🇷',2.49],['ספרד','🇪🇸',2.49],['גרמניה','🇩🇪',2.49],['הולנד','🇳🇱',2.49],['שווייץ','🇨🇭',2.49],['פורטוגל','🇵🇹',2.49],['קפריסין','🇨🇾',2.49],['אוסטריה','🇦🇹',2.49],['תאילנד','🇹🇭',3.90],['יפן','🇯🇵',3.90],['טורקיה','🇹🇷',3.90],['גאורגיה','🇬🇪',3.90],['דובאי','🇦🇪',4.90]];
@@ -438,7 +457,7 @@ var DESTS=[['מונטנגרו','🇲🇪',1.99],['ארה״ב','🇺🇸',2.49],[
 /* google reviews marquee */
 (function(){
   var t=document.getElementById('revtrack');if(!t)return;
-  var R=[['עופר אשכנזי','לא פעם ראשונה שאני משתמש. חיבור מעולה. גלישה ללא תקיעות.'],['Raya Reshef','שימוש מאוד נוח, קל להוסיף ג׳יגה. תמיכת השירות בווטסאפ מצוינת.'],['אבי גבע','קל, מהיר וידידותי במחיר סביר!! מפתיע לטובה!!'],['אילן שמשי','הדלקתי ומיד התחבר לרשת מעולה. שווה את הכסף.'],['gil goshen','מקצוענים. אדיבים. סבלנים. אפס תקלות.'],['יש גל','שירות לקוחות פשוט מעולה. זמין וברור.']];
+  var R=[['עופר אשכנזי','לא פעם ראשונה שאני משתמש. חיבור מעולה. גלישה ללא תקיעות.'],['Raya Reshef','שימוש מאוד נוח, קל להוסיף ג׳יגה. תמיכת השירות בווטסאפ מצוינת.'],['אבי גבע','קל, מהיר וידידותי במחיר סביר!! מפתיע לטובה!!'],['אילן שמשי','הדלקתי ומיד התחבר לרשת מעולה. שווה את הכסף.'],['gil goshen','מקצוענים. אדיבים. סבלנים. אפס תקלות.'],['יש גל','שירות לקוחות פשוט מעולה. זמין וברור.'],['שרית תורגמן','חזרתי מחודש בארה״ב, ה-SIM שירת אותי נאמנה כל התקופה.'],['דנה כהן','נחתתי והייתי מחוברת עוד לפני שיצאתי מהמטוס. פשוט קסם.'],['משה לוי','חסכתי המון בטיול לאירופה — חבילה אחת לכל המדינות.'],['נועה ברק','התקנה בשתי דקות, בלי כאב ראש. ממליצה בחום.'],['רונית מזרחי','התמיכה בעברית עשתה את ההבדל. ענו לי מיד בוואטסאפ.'],['אלון פרץ','מהיר, יציב ובמחיר הוגן. לא חוזר לרומינג של החברה.'],['Michal S.','Worked instantly in Thailand. Best eSIM I have used.'],['דוד כץ','היתרה נשמרה לי מטיול לטיול — גאוני.'],['תמר גולן','פשוט, זול ועובד. מה עוד צריך?'],['Yossi A.','Great coverage across Europe, super easy top-ups.']];
   var h=R.map(function(r){return '<div class="revcard"><div class="top"><span class="stars">★★★★★</span><svg class="gicon g" viewBox="0 0 48 48"><use href="#i-google"/></svg></div><p>“'+r[1]+'”</p><div class="who"><span class="av">'+r[0][0]+'</span><span><b>'+r[0]+'</b><small>✓ מאומת בגוגל</small></span></div></div>';}).join('');
   t.innerHTML=h+h;
 })();
