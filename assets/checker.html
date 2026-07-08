@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בדוק תאימות eSIM — SimTLV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden}
+body{
+  font-family:'Heebo',Arial,sans-serif;
+  background:#F5F5F7;
+  color:#1d1d1f;
+  direction:rtl;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+
+/* ─── WIDGET ─────────────────────────────────────── */
+.widget{max-width:860px;margin:0 auto;padding:44px 20px 72px}
+
+/* ─── HEADER ─────────────────────────────────────── */
+.hdr{text-align:center;margin-bottom:36px}
+.hdr-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#fff;border:1px solid #e0e0e0;border-radius:99px;
+  font-size:12px;font-weight:600;color:#555;
+  padding:5px 14px;margin-bottom:16px;letter-spacing:.3px;
+}
+.hdr-tag svg{width:14px;height:14px;color:#7c3aed}
+.hdr-h1{
+  font-size:clamp(26px,5vw,46px);font-weight:900;
+  color:#1d1d1f;line-height:1.1;letter-spacing:-1px;margin-bottom:10px;
+}
+.hdr-h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,#7c3aed,#a855f7);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hdr-p{font-size:16px;color:#6e6e73;font-weight:400}
+
+/* ─── STATS ──────────────────────────────────────── */
+.stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.stat{
+  display:flex;align-items:center;gap:6px;
+  background:#fff;border:1px solid #e5e5ea;
+  border-radius:10px;padding:8px 16px;
+  font-size:13px;font-weight:600;color:#555;
+}
+.stat b{font-size:15px;font-weight:800;color:#7c3aed}
+
+/* ─── SEARCH ─────────────────────────────────────── */
+.search-wrap{position:relative;margin-bottom:16px}
+.search-wrap svg.si{
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  width:20px;height:20px;color:#aaa;pointer-events:none;
+}
+.search{
+  width:100%;padding:14px 48px 14px 46px;
+  font-size:15.5px;font-family:'Heebo',Arial,sans-serif;font-weight:400;
+  color:#1d1d1f;background:#fff;
+  border:1px solid #d5d5d5;border-radius:14px;outline:none;
+  transition:border-color .18s,box-shadow .18s;
+}
+.search::placeholder{color:#b0b0b0}
+.search:focus{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.1)}
+.search-x{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  width:26px;height:26px;border-radius:50%;background:#f0f0f0;
+  border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+  color:#666;font-size:14px;transition:background .15s;
+}
+.search-x:hover{background:#e0e0e0}
+.search-x.on{display:flex}
+
+/* ─── BRAND TABS ─────────────────────────────────── */
+.brands{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.brand-btn{
+  display:flex;align-items:center;gap:7px;
+  padding:7px 14px;border-radius:10px;
+  border:1px solid #e0e0e0;background:#fff;
+  cursor:pointer;font-family:'Heebo',Arial,sans-serif;
+  font-size:13px;font-weight:600;color:#444;
+  transition:all .15s;user-select:none;
+}
+.brand-btn img{width:18px;height:18px;object-fit:contain;display:block;flex-shrink:0}
+.brand-btn:hover{border-color:#bbb;color:#1d1d1f;background:#fafafa}
+.brand-btn.active{
+  background:#1d1d1f;border-color:#1d1d1f;color:#fff;
+}
+.brand-btn.active img{filter:invert(1) brightness(10)}
+.brand-btn.active svg{fill:#fff}
+
+/* ─── RESULTS INFO ───────────────────────────────── */
+.rinfo{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:8px;margin-bottom:14px;min-height:20px;
+}
+.rinfo-text{font-size:13px;color:#999;font-weight:500}
+.rinfo-text strong{color:#7c3aed}
+.rinfo-dots{display:flex;gap:14px}
+.rdot{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#aaa}
+.dot{width:8px;height:8px;border-radius:50%}
+.dot.ok{background:#34c759}.dot.no{background:#ff3b30}
+
+/* ─── GRID ───────────────────────────────────────── */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:10px;margin-bottom:24px;
+}
+@media(max-width:620px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:400px){.grid{grid-template-columns:1fr}}
+
+/* ─── CARD ───────────────────────────────────────── */
+.card{
+  background:#fff;border:1px solid #e5e5ea;border-radius:14px;
+  padding:14px 16px;cursor:pointer;
+  display:flex;align-items:center;gap:12px;
+  transition:border-color .15s,box-shadow .15s,transform .15s;
+  position:relative;overflow:hidden;
+}
+.card::after{
+  content:'';position:absolute;top:0;bottom:0;right:0;width:3px;
+  border-radius:0 14px 14px 0;
+}
+.card.ok::after{background:#34c759}
+.card.no::after{background:#ff3b30}
+.card:hover{border-color:#ccc;box-shadow:0 4px 20px rgba(0,0,0,.08);transform:translateY(-2px)}
+
+.brand-logo{
+  width:38px;height:38px;border-radius:10px;background:#f5f5f7;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  overflow:hidden;
+}
+.brand-logo img{width:22px;height:22px;object-fit:contain}
+
+.card-info{flex:1;min-width:0}
+.card-model{font-size:13.5px;font-weight:700;color:#1d1d1f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3;margin-bottom:2px}
+.card-brand{font-size:11.5px;color:#aaa;font-weight:500}
+
+.card-badge{
+  flex-shrink:0;font-size:11px;font-weight:700;
+  padding:4px 10px;border-radius:99px;white-space:nowrap;
+}
+.card-badge.ok{background:#e8faf0;color:#1a7a3c}
+.card-badge.no{background:#ffeaea;color:#c0392b}
+
+/* ─── EMPTY ──────────────────────────────────────── */
+.empty{
+  grid-column:1/-1;text-align:center;padding:56px 20px;
+}
+.empty-icon{font-size:40px;margin-bottom:12px;display:block}
+.empty-t{font-size:17px;font-weight:700;color:#555;margin-bottom:5px}
+.empty-s{font-size:13px;color:#aaa}
+
+/* ─── NOT SURE BOX ───────────────────────────────── */
+.nsure{
+  background:#fff;border:1.5px dashed #e0e0e0;border-radius:14px;
+  padding:20px;text-align:center;
+}
+.nsure-t{font-size:14px;font-weight:700;color:#1d1d1f;margin-bottom:5px}
+.nsure-s{font-size:13px;color:#999;margin-bottom:14px}
+.nsure-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:7px}
+.chip{
+  padding:7px 16px;border-radius:99px;border:1px solid #e0e0e0;
+  background:#fff;font-size:13px;font-weight:600;color:#444;
+  cursor:pointer;font-family:'Heebo',Arial,sans-serif;
+  transition:all .14s;
+}
+.chip:hover{background:#f0ecff;border-color:#c4b5fd;color:#7c3aed}
+
+/* ─── SUPPORT BUTTON ─────────────────────────────── */
+.support-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:11px 22px;border-radius:12px;
+  background:#fff;border:1.5px solid #25D366;
+  color:#128a2e;font-family:'Heebo',Arial,sans-serif;
+  font-size:14px;font-weight:700;text-decoration:none;
+  cursor:pointer;transition:all .15s;margin-top:16px;
+}
+.support-btn:hover{background:#25D366;color:#fff;border-color:#25D366}
+.support-btn img{width:18px;height:18px;object-fit:contain;flex-shrink:0}
+.support-btn:hover img{filter:brightness(10)}
+
+/* ─── OVERLAY ────────────────────────────────────── */
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.45);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  z-index:1000;display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.overlay.open{opacity:1;pointer-events:all}
+@media(min-width:580px){.overlay{align-items:center}}
+
+/* ─── MODAL ──────────────────────────────────────── */
+.modal{
+  background:#fff;border-radius:22px 22px 0 0;
+  width:100%;max-width:520px;max-height:92vh;overflow-y:auto;
+  overscroll-behavior:contain;scrollbar-width:none;
+  transform:translateY(48px);transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+.modal::-webkit-scrollbar{display:none}
+.overlay.open .modal{transform:none}
+@media(min-width:580px){.modal{border-radius:22px;max-height:88vh}}
+
+.modal-handle{display:flex;justify-content:center;padding:12px 0 0}
+.modal-bar{width:36px;height:4px;background:#e5e5ea;border-radius:99px}
+@media(min-width:580px){.modal-handle{display:none}}
+
+.modal-close{
+  position:absolute;top:14px;left:14px;
+  width:30px;height:30px;border-radius:50%;
+  background:#f0f0f0;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#555;font-size:15px;font-weight:400;
+  transition:background .14s,transform .14s;z-index:5;line-height:1;
+}
+.modal-close:hover{background:#e0e0e0;transform:rotate(90deg)}
+
+.modal-body{padding:0 24px 28px;direction:rtl}
+
+/* Modal: hero */
+.m-hero{text-align:center;padding:18px 0 22px;border-bottom:1px solid #f0f0f0;margin-bottom:22px}
+.m-brand-logo{
+  width:64px;height:64px;border-radius:18px;
+  background:#f5f5f7;display:inline-flex;align-items:center;justify-content:center;
+  margin-bottom:12px;
+}
+.m-brand-logo img{width:36px;height:36px;object-fit:contain}
+.m-status-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13px;font-weight:700;padding:6px 16px;border-radius:99px;
+  margin-bottom:10px;
+}
+.m-status-badge.ok{background:#e8faf0;color:#1a7a3c}
+.m-status-badge.no{background:#ffeaea;color:#c0392b}
+.m-model{font-size:22px;font-weight:800;color:#1d1d1f;line-height:1.2;margin-bottom:4px}
+.m-meta{font-size:13px;color:#aaa;font-weight:500}
+
+/* Modal: no-esim warning */
+.m-no{
+  background:#fff8f8;border:1px solid #ffd5d5;border-radius:12px;
+  padding:16px;margin-bottom:20px;
+}
+.m-no-t{font-size:13.5px;font-weight:700;color:#c0392b;margin-bottom:6px}
+.m-no-s{font-size:13px;color:#666;line-height:1.55}
+
+/* Modal: section label */
+.slbl{
+  font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;
+  letter-spacing:1px;margin-bottom:12px;
+  display:flex;align-items:center;gap:7px;
+}
+.slbl::before{content:'';width:3px;height:14px;background:#7c3aed;border-radius:2px}
+
+/* Modal: steps */
+.steps{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.step{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 14px;background:#fafafa;
+  border:1px solid #f0f0f0;border-radius:12px;
+}
+.step-n{
+  width:26px;height:26px;border-radius:50%;
+  background:#7c3aed;color:#fff;
+  font-size:12px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.step-t{font-size:13.5px;color:#444;font-weight:500;line-height:1.55;padding-top:3px}
+.step-t strong{color:#1d1d1f;font-weight:700}
+.path{
+  display:inline-flex;
+  background:#f0ecff;color:#7c3aed;
+  font-size:11.5px;font-weight:700;
+  padding:2px 8px;border-radius:6px;margin:0 2px;
+}
+.tick{
+  display:inline-flex;align-items:center;gap:3px;
+  background:#e8faf0;color:#1a7a3c;
+  font-size:11.5px;font-weight:700;
+  padding:3px 8px;border-radius:6px;margin-top:4px;
+}
+
+/* Modal: alt check */
+.alt{
+  background:#fffbef;border:1px solid #fde68a;
+  border-radius:12px;padding:14px;margin-bottom:18px;
+}
+.alt-t{font-size:12.5px;font-weight:700;color:#92400e;margin-bottom:6px}
+.alt-s{font-size:13px;color:#78350f;line-height:1.55}
+.alt-s .path{background:#fef3c7;color:#92400e}
+
+/* Modal: CTA */
+.m-cta{
+  background:#1d1d1f;border-radius:16px;
+  padding:20px 18px;text-align:center;
+}
+.m-cta-s{font-size:13px;color:rgba(255,255,255,.65);margin-bottom:12px;font-weight:500}
+.m-cta-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:#1d1d1f;
+  font-family:'Heebo',Arial,sans-serif;
+  font-size:15px;font-weight:800;
+  padding:12px 26px;border-radius:12px;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:transform .15s,box-shadow .15s;
+}
+.m-cta-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.18)}
+</style>
+</head>
+<body>
+<div class="widget">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-tag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1.5 8.5a13 13 0 0 1 21 0M5 12a10 10 0 0 1 14 0M8.5 15.5a6 6 0 0 1 7 0M12 19h.01"/></svg>
+      בדיקת תאימות eSIM
+    </div>
+    <h1 class="hdr-h1">המכשיר שלך תומך ב<em>-eSIM</em>?</h1>
+    <p class="hdr-p">חפש את דגם המכשיר וגלה תוך שנייה</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat"><b>200+</b> דגמים במאגר</div>
+    <div class="stat"><b>10</b> מותגים מובילים</div>
+    <div class="stat"><b>2026</b> עדכני לשנה הנוכחית</div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-wrap">
+    <svg class="si" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input type="text" class="search" id="search"
+      placeholder='חפש מכשיר... לדוג׳ iPhone 15, Galaxy S24'
+      autocomplete="off" spellcheck="false">
+    <button class="search-x" id="searchX">✕</button>
+  </div>
+
+  <!-- BRAND TABS -->
+  <div class="brands" id="brands">
+    <button class="brand-btn active" data-brand="all">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+      הכל
+    </button>
+    <button class="brand-btn" data-brand="Apple">
+      <img src="https://cdn.simpleicons.org/apple/1d1d1f" alt="Apple"> Apple
+    </button>
+    <button class="brand-btn" data-brand="Samsung">
+      <img src="https://cdn.simpleicons.org/samsung/1428a0" alt="Samsung"> Samsung
+    </button>
+    <button class="brand-btn" data-brand="Google">
+      <img src="https://cdn.simpleicons.org/google/4285f4" alt="Google"> Google Pixel
+    </button>
+    <button class="brand-btn" data-brand="Motorola">
+      <img src="https://cdn.simpleicons.org/motorola/e51937" alt="Motorola"> Motorola
+    </button>
+    <button class="brand-btn" data-brand="Huawei">
+      <img src="https://cdn.simpleicons.org/huawei/cf0a2c" alt="Huawei"> Huawei
+    </button>
+    <button class="brand-btn" data-brand="Sony">
+      <img src="https://cdn.simpleicons.org/sony/000000" alt="Sony"> Sony
+    </button>
+    <button class="brand-btn" data-brand="Xiaomi">
+      <img src="https://cdn.simpleicons.org/xiaomi/ff6900" alt="Xiaomi"> Xiaomi
+    </button>
+    <button class="brand-btn" data-brand="OnePlus">
+      <img src="https://cdn.simpleicons.org/oneplus/f5010c" alt="OnePlus"> OnePlus
+    </button>
+  </div>
+
+  <!-- RESULTS INFO -->
+  <div class="rinfo">
+    <div class="rinfo-text" id="rinfo"></div>
+    <div class="rinfo-dots">
+      <div class="rdot"><span class="dot ok"></span>תומך</div>
+      <div class="rdot"><span class="dot no"></span>לא תומך</div>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid" id="grid"></div>
+
+  <!-- NOT SURE -->
+  <div class="nsure">
+    <div class="nsure-t">🤔 לא מוצא את המכשיר שלך?</div>
+    <div class="nsure-s">סנן לפי מותג, או בצע בדיקה ישירה דרך הגדרות המכשיר</div>
+    <div class="nsure-chips">
+      <button class="chip" data-fb="Apple">Apple iPhone</button>
+      <button class="chip" data-fb="Samsung">Samsung Galaxy</button>
+      <button class="chip" data-fb="Google">Google Pixel</button>
+      <button class="chip" data-generic="1">בדיקה כללית לאנדרואיד</button>
+    </div>
+    <div style="margin-top:14px;border-top:1px solid #f0f0f0;padding-top:14px">
+      <a class="support-btn" id="js-support-btn" href="#" target="_blank" rel="noopener">
+        <img src="https://cdn.simpleicons.org/whatsapp/25D366" alt="WhatsApp">
+        לא בטוח? צור קשר עם התמיכה שלנו
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- OVERLAY + MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="modal-handle"><div class="modal-bar"></div></div>
+    <button class="modal-close" id="mclose">✕</button>
+    <div class="modal-body" id="mbody"></div>
+  </div>
+</div>
+
+<script>
+/* ─── CONFIG ─────────────────────────────────────── */
+const CTA_URL     = 'https://simtlv.co.il';
+const SUPPORT_URL = 'https://wa.me/9720587775678?text=שלום%2C%20אני%20צריך%20עזרה%20בבדיקת%20תאימות%20eSIM%20למכשיר%20שלי';
+
+/* ─── DATA ──────────────────────────────────────── */
+const D=[
+  {b:'Apple',m:'iPhone XR',         e:1,y:2018},
+  {b:'Apple',m:'iPhone XS',         e:1,y:2018},
+  {b:'Apple',m:'iPhone XS Max',     e:1,y:2018},
+  {b:'Apple',m:'iPhone 11',         e:1,y:2019},
+  {b:'Apple',m:'iPhone 11 Pro',     e:1,y:2019},
+  {b:'Apple',m:'iPhone 11 Pro Max', e:1,y:2019},
+  {b:'Apple',m:'iPhone SE (דור 2)', e:1,y:2020},
+  {b:'Apple',m:'iPhone 12',         e:1,y:2020},
+  {b:'Apple',m:'iPhone 12 mini',    e:1,y:2020},
+  {b:'Apple',m:'iPhone 12 Pro',     e:1,y:2020},
+  {b:'Apple',m:'iPhone 12 Pro Max', e:1,y:2020},
+  {b:'Apple',m:'iPhone 13',         e:1,y:2021},
+  {b:'Apple',m:'iPhone 13 mini',    e:1,y:2021},
+  {b:'Apple',m:'iPhone 13 Pro',     e:1,y:2021},
+  {b:'Apple',m:'iPhone 13 Pro Max', e:1,y:2021},
+  {b:'Apple',m:'iPhone SE (דור 3)', e:1,y:2022},
+  {b:'Apple',m:'iPhone 14',         e:1,y:2022},
+  {b:'Apple',m:'iPhone 14 Plus',    e:1,y:2022},
+  {b:'Apple',m:'iPhone 14 Pro',     e:1,y:2022},
+  {b:'Apple',m:'iPhone 14 Pro Max', e:1,y:2022},
+  {b:'Apple',m:'iPhone 15',         e:1,y:2023},
+  {b:'Apple',m:'iPhone 15 Plus',    e:1,y:2023},
+  {b:'Apple',m:'iPhone 15 Pro',     e:1,y:2023},
+  {b:'Apple',m:'iPhone 15 Pro Max', e:1,y:2023},
+  {b:'Apple',m:'iPhone 16',         e:1,y:2024},
+  {b:'Apple',m:'iPhone 16 Plus',    e:1,y:2024},
+  {b:'Apple',m:'iPhone 16 Pro',     e:1,y:2024},
+  {b:'Apple',m:'iPhone 16 Pro Max', e:1,y:2024},
+  {b:'Apple',m:'iPhone 16e',        e:1,y:2025},
+  {b:'Apple',m:'iPhone 17',         e:1,y:2025},
+  {b:'Apple',m:'iPhone 17 Plus',    e:1,y:2025},
+  {b:'Apple',m:'iPhone 17 Pro',     e:1,y:2025},
+  {b:'Apple',m:'iPhone 17 Pro Max', e:1,y:2025},
+  {b:'Apple',m:'iPhone 17 Air',     e:1,y:2025},
+  {b:'Apple',m:'iPhone X',          e:0,y:2017},
+  {b:'Apple',m:'iPhone 8',          e:0,y:2017},
+  {b:'Apple',m:'iPhone 8 Plus',     e:0,y:2017},
+  {b:'Apple',m:'iPhone 7',          e:0,y:2016},
+  {b:'Apple',m:'iPhone 7 Plus',     e:0,y:2016},
+  {b:'Apple',m:'iPhone 6s',         e:0,y:2015},
+  {b:'Apple',m:'iPhone 6s Plus',    e:0,y:2015},
+  {b:'Apple',m:'iPhone SE (דור 1)', e:0,y:2016},
+
+  {b:'Samsung',m:'Galaxy Note 10',       e:1,y:2019},
+  {b:'Samsung',m:'Galaxy Note 10+',      e:1,y:2019},
+  {b:'Samsung',m:'Galaxy S10 5G',        e:1,y:2019},
+  {b:'Samsung',m:'Galaxy S20',           e:1,y:2020},
+  {b:'Samsung',m:'Galaxy S20+',          e:1,y:2020},
+  {b:'Samsung',m:'Galaxy S20 Ultra',     e:1,y:2020},
+  {b:'Samsung',m:'Galaxy S20 FE',        e:1,y:2020},
+  {b:'Samsung',m:'Galaxy Z Flip',        e:1,y:2020},
+  {b:'Samsung',m:'Galaxy Z Fold 2',      e:1,y:2020},
+  {b:'Samsung',m:'Galaxy Note 20',       e:1,y:2020},
+  {b:'Samsung',m:'Galaxy Note 20 Ultra', e:1,y:2020},
+  {b:'Samsung',m:'Galaxy S21',           e:1,y:2021},
+  {b:'Samsung',m:'Galaxy S21+',          e:1,y:2021},
+  {b:'Samsung',m:'Galaxy S21 Ultra',     e:1,y:2021},
+  {b:'Samsung',m:'Galaxy Z Flip 3',      e:1,y:2021},
+  {b:'Samsung',m:'Galaxy Z Fold 3',      e:1,y:2021},
+  {b:'Samsung',m:'Galaxy S21 FE',        e:1,y:2022},
+  {b:'Samsung',m:'Galaxy S22',           e:1,y:2022},
+  {b:'Samsung',m:'Galaxy S22+',          e:1,y:2022},
+  {b:'Samsung',m:'Galaxy S22 Ultra',     e:1,y:2022},
+  {b:'Samsung',m:'Galaxy Z Flip 4',      e:1,y:2022},
+  {b:'Samsung',m:'Galaxy Z Fold 4',      e:1,y:2022},
+  {b:'Samsung',m:'Galaxy S23',           e:1,y:2023},
+  {b:'Samsung',m:'Galaxy S23+',          e:1,y:2023},
+  {b:'Samsung',m:'Galaxy S23 Ultra',     e:1,y:2023},
+  {b:'Samsung',m:'Galaxy S23 FE',        e:1,y:2023},
+  {b:'Samsung',m:'Galaxy Z Flip 5',      e:1,y:2023},
+  {b:'Samsung',m:'Galaxy Z Fold 5',      e:1,y:2023},
+  {b:'Samsung',m:'Galaxy A54',           e:1,y:2023},
+  {b:'Samsung',m:'Galaxy S24',           e:1,y:2024},
+  {b:'Samsung',m:'Galaxy S24+',          e:1,y:2024},
+  {b:'Samsung',m:'Galaxy S24 Ultra',     e:1,y:2024},
+  {b:'Samsung',m:'Galaxy S24 FE',        e:1,y:2024},
+  {b:'Samsung',m:'Galaxy Z Flip 6',      e:1,y:2024},
+  {b:'Samsung',m:'Galaxy Z Fold 6',      e:1,y:2024},
+  {b:'Samsung',m:'Galaxy A35',           e:1,y:2024},
+  {b:'Samsung',m:'Galaxy A55',           e:1,y:2024},
+  {b:'Samsung',m:'Galaxy S25',           e:1,y:2025},
+  {b:'Samsung',m:'Galaxy S25+',          e:1,y:2025},
+  {b:'Samsung',m:'Galaxy S25 Ultra',     e:1,y:2025},
+  {b:'Samsung',m:'Galaxy A56',           e:1,y:2025},
+  {b:'Samsung',m:'Galaxy S25 Edge',      e:1,y:2025},
+  {b:'Samsung',m:'Galaxy S26',           e:1,y:2026},
+  {b:'Samsung',m:'Galaxy S26+',          e:1,y:2026},
+  {b:'Samsung',m:'Galaxy S26 Ultra',     e:1,y:2026},
+  {b:'Samsung',m:'Galaxy Z Fold 7',      e:1,y:2026},
+  {b:'Samsung',m:'Galaxy Z Flip 7',      e:1,y:2026},
+  {b:'Samsung',m:'Galaxy Z Flip 7 FE',   e:1,y:2026},
+  {b:'Samsung',m:'Galaxy A36',           e:1,y:2026},
+  {b:'Samsung',m:'Galaxy S10',           e:0,y:2019},
+  {b:'Samsung',m:'Galaxy S10+',          e:0,y:2019},
+  {b:'Samsung',m:'Galaxy S10e',          e:0,y:2019},
+  {b:'Samsung',m:'Galaxy S9',            e:0,y:2018},
+  {b:'Samsung',m:'Galaxy S8',            e:0,y:2017},
+
+  {b:'Google',m:'Pixel 3',          e:1,y:2018},
+  {b:'Google',m:'Pixel 3 XL',       e:1,y:2018},
+  {b:'Google',m:'Pixel 3a',         e:1,y:2019},
+  {b:'Google',m:'Pixel 3a XL',      e:1,y:2019},
+  {b:'Google',m:'Pixel 4',          e:1,y:2019},
+  {b:'Google',m:'Pixel 4 XL',       e:1,y:2019},
+  {b:'Google',m:'Pixel 4a',         e:1,y:2020},
+  {b:'Google',m:'Pixel 4a 5G',      e:1,y:2020},
+  {b:'Google',m:'Pixel 5',          e:1,y:2020},
+  {b:'Google',m:'Pixel 5a',         e:1,y:2021},
+  {b:'Google',m:'Pixel 6',          e:1,y:2021},
+  {b:'Google',m:'Pixel 6 Pro',      e:1,y:2021},
+  {b:'Google',m:'Pixel 6a',         e:1,y:2022},
+  {b:'Google',m:'Pixel 7',          e:1,y:2022},
+  {b:'Google',m:'Pixel 7 Pro',      e:1,y:2022},
+  {b:'Google',m:'Pixel 7a',         e:1,y:2023},
+  {b:'Google',m:'Pixel 8',          e:1,y:2023},
+  {b:'Google',m:'Pixel 8 Pro',      e:1,y:2023},
+  {b:'Google',m:'Pixel 8a',         e:1,y:2024},
+  {b:'Google',m:'Pixel 9',          e:1,y:2024},
+  {b:'Google',m:'Pixel 9 Pro',      e:1,y:2024},
+  {b:'Google',m:'Pixel 9 Pro XL',   e:1,y:2024},
+  {b:'Google',m:'Pixel 9 Pro Fold', e:1,y:2024},
+  {b:'Google',m:'Pixel 9a',         e:1,y:2025},
+  {b:'Google',m:'Pixel 10',         e:1,y:2025},
+  {b:'Google',m:'Pixel 10 Pro',     e:1,y:2025},
+  {b:'Google',m:'Pixel 10 Pro XL',  e:1,y:2025},
+  {b:'Google',m:'Pixel 10 Pro Fold',e:1,y:2025},
+  {b:'Google',m:'Pixel 2',          e:0,y:2017},
+  {b:'Google',m:'Pixel 2 XL',       e:0,y:2017},
+
+  {b:'Motorola',m:'Razr (2020)',    e:1,y:2020},
+  {b:'Motorola',m:'Razr 5G',        e:1,y:2020},
+  {b:'Motorola',m:'Edge+ (2020)',   e:1,y:2020},
+  {b:'Motorola',m:'Razr (2022)',    e:1,y:2022},
+  {b:'Motorola',m:'Edge 30 Pro',    e:1,y:2022},
+  {b:'Motorola',m:'Razr 40',        e:1,y:2023},
+  {b:'Motorola',m:'Razr 40 Ultra',  e:1,y:2023},
+  {b:'Motorola',m:'Edge 40 Pro',    e:1,y:2023},
+  {b:'Motorola',m:'Razr 50',        e:1,y:2024},
+  {b:'Motorola',m:'Razr 50 Ultra',  e:1,y:2024},
+  {b:'Motorola',m:'Edge 50 Pro',    e:1,y:2024},
+  {b:'Motorola',m:'Edge 50 Ultra',  e:1,y:2024},
+  {b:'Motorola',m:'Razr 2025',      e:1,y:2025},
+  {b:'Motorola',m:'Razr+ 2025',     e:1,y:2025},
+  {b:'Motorola',m:'Edge 60 Pro',    e:1,y:2025},
+
+  {b:'Huawei',m:'P40',          e:1,y:2020},
+  {b:'Huawei',m:'P40 Pro',      e:1,y:2020},
+  {b:'Huawei',m:'P40 Pro+',     e:1,y:2020},
+  {b:'Huawei',m:'Mate 40 Pro',  e:1,y:2020},
+  {b:'Huawei',m:'P50 Pro',      e:1,y:2021},
+  {b:'Huawei',m:'Mate 50 Pro',  e:1,y:2022},
+
+  {b:'Sony',m:'Xperia 1 IV',  e:1,y:2022},
+  {b:'Sony',m:'Xperia 5 IV',  e:1,y:2022},
+  {b:'Sony',m:'Xperia 1 V',   e:1,y:2023},
+  {b:'Sony',m:'Xperia 5 V',   e:1,y:2023},
+  {b:'Sony',m:'Xperia 10 V',  e:1,y:2023},
+  {b:'Sony',m:'Xperia 1 VI',  e:1,y:2024},
+  {b:'Sony',m:'Xperia 5 VI',  e:1,y:2024},
+  {b:'Sony',m:'Xperia 1 VII', e:1,y:2025},
+  {b:'Sony',m:'Xperia 5 VII', e:1,y:2025},
+
+  {b:'OnePlus',m:'OnePlus 12',  e:1,y:2024},
+  {b:'OnePlus',m:'OnePlus 12R', e:1,y:2024},
+  {b:'OnePlus',m:'OnePlus Open', e:1,y:2023},
+  {b:'OnePlus',m:'OnePlus 13',  e:1,y:2025},
+  {b:'OnePlus',m:'OnePlus 13R', e:1,y:2025},
+
+  {b:'Xiaomi',m:'Xiaomi 12T Pro', e:1,y:2022},
+  {b:'Xiaomi',m:'Xiaomi 13',      e:1,y:2023},
+  {b:'Xiaomi',m:'Xiaomi 13 Pro',  e:1,y:2023},
+  {b:'Xiaomi',m:'Xiaomi 13T Pro', e:1,y:2023},
+  {b:'Xiaomi',m:'Xiaomi 14',      e:1,y:2024},
+  {b:'Xiaomi',m:'Xiaomi 14 Ultra',e:1,y:2024},
+  {b:'Xiaomi',m:'Xiaomi 14T Pro', e:1,y:2024},
+  {b:'Xiaomi',m:'Xiaomi 15',       e:1,y:2025},
+  {b:'Xiaomi',m:'Xiaomi 15 Pro',   e:1,y:2025},
+  {b:'Xiaomi',m:'Xiaomi 15 Ultra', e:1,y:2025},
+  {b:'Xiaomi',m:'Xiaomi 15T',      e:1,y:2025},
+  {b:'Xiaomi',m:'Xiaomi 15T Pro',  e:1,y:2025},
+];
+
+/* ─── BRAND LOGOS ────────────────────────────────── */
+const LOGO={
+  Apple:   'https://cdn.simpleicons.org/apple/1d1d1f',
+  Samsung: 'https://cdn.simpleicons.org/samsung/1428a0',
+  Google:  'https://cdn.simpleicons.org/google/4285f4',
+  Motorola:'https://cdn.simpleicons.org/motorola/e51937',
+  Huawei:  'https://cdn.simpleicons.org/huawei/cf0a2c',
+  Sony:    'https://cdn.simpleicons.org/sony/000000',
+  OnePlus: 'https://cdn.simpleicons.org/oneplus/f5010c',
+  Xiaomi:  'https://cdn.simpleicons.org/xiaomi/ff6900',
+};
+function logo(b,size){
+  var s=size||22;
+  var src=LOGO[b]||'https://cdn.simpleicons.org/android/555555';
+  return '<img src="'+src+'" width="'+s+'" height="'+s+'" alt="'+b+'" loading="lazy">';
+}
+
+/* ─── INSTRUCTIONS ───────────────────────────────── */
+const INS={
+  Apple:{
+    title:'כיצד לאמת ב-iPhone שלך',
+    steps:[
+      'פתח את <strong>הגדרות</strong> ⚙️',
+      'לחץ על <span class="path">כללי</span>',
+      'לחץ על <span class="path">אודות</span>',
+      'חפש <strong>Digital SIM</strong> — אם מופיע, תומך<br><span class="tick">✅ Digital SIM = תומך eSIM</span>',
+    ],
+    alt:{t:'💡 בדיקה מהירה נוספת',s:'הגדרות ← <span class="path">סלולרי</span> ← <span class="path">הוסף eSIM</span><br>אם האפשרות קיימת — תומך ✅'}
+  },
+  Samsung:{
+    title:'כיצד לאמת ב-Samsung Galaxy שלך',
+    steps:[
+      'פתח את <strong>הגדרות</strong> ⚙️',
+      'לחץ על <span class="path">חיבורים</span>',
+      'לחץ על <span class="path">מנהל כרטיס SIM</span>',
+      'חפש <strong>"הוסף eSIM"</strong> / <strong>"Add eSIM"</strong><br><span class="tick">✅ האפשרות קיימת = תומך eSIM</span>',
+    ],
+    alt:{t:'💡 בדיקת EID דרך חייגן',s:'פתח חייגן ← הקלד <span class="path">*#06#</span><br>מופיע <strong>EID</strong>? = תומך eSIM ✅'}
+  },
+  Google:{
+    title:'כיצד לאמת ב-Google Pixel שלך',
+    steps:[
+      'פתח את <strong>הגדרות</strong> ⚙️',
+      'לחץ על <span class="path">רשת ואינטרנט</span>',
+      'לחץ על <span class="path">כרטיסי SIM</span>',
+      'חפש <strong>"הורד eSIM חדש"</strong><br><span class="tick">✅ האפשרות קיימת = תומך eSIM</span>',
+    ],
+    alt:null
+  },
+  Motorola:{
+    title:'כיצד לאמת ב-Motorola שלך',
+    steps:[
+      'פתח את <strong>הגדרות</strong> ⚙️',
+      'לחץ על <span class="path">רשת ואינטרנט</span>',
+      'לחץ על <span class="path">כרטיסי SIM</span>',
+      'חפש <strong>eSIM</strong> / <strong>SIM דיגיטלי</strong><br><span class="tick">✅ האפשרות קיימת = תומך</span>',
+    ],
+    alt:{t:'💡 בדיקת EID דרך חייגן',s:'פתח חייגן ← הקלד <span class="path">*#06#</span><br>מופיע <strong>EID</strong>? = תומך eSIM ✅'}
+  },
+  Huawei:{
+    title:'כיצד לאמת ב-Huawei שלך',
+    steps:[
+      'פתח את <strong>הגדרות</strong> ⚙️',
+      'לחץ על <span class="path">רשת סלולרית</span>',
+      'לחץ על <span class="path">כרטיס SIM</span>',
+      'חפש <strong>eSIM</strong><br><span class="tick">✅ תפריט eSIM = תומך</span>',
+    ],
+    alt:null
+  },
+  Sony:{
+    title:'כיצד לאמת ב-Sony Xperia שלך',
+    steps:[
+      'פתח את <strong>הגדרות</strong> ⚙️',
+      'לחץ על <span class="path">רשת ואינטרנט</span>',
+      'לחץ על <span class="path">כרטיסי SIM</span>',
+      'חפש <strong>"הורד eSIM"</strong><br><span class="tick">✅ האפשרות קיימת = תומך</span>',
+    ],
+    alt:null
+  },
+  OnePlus:{
+    title:'כיצד לאמת ב-OnePlus שלך',
+    steps:[
+      'פתח את <strong>הגדרות</strong> ⚙️',
+      'לחץ על <span class="path">כרטיס SIM ורשת</span>',
+      'חפש <span class="path">eSIM</span> / <span class="path">SIM דיגיטלי</span>',
+      'אם האפשרות קיימת — תומך ✅',
+    ],
+    alt:null
+  },
+  Xiaomi:{
+    title:'כיצד לאמת ב-Xiaomi שלך',
+    steps:[
+      'פתח את <strong>הגדרות</strong> ⚙️',
+      'לחץ על <span class="path">כרטיסי SIM וסלולר</span>',
+      'חפש <strong>eSIM</strong> / <strong>"הוסף SIM דיגיטלי"</strong>',
+      'אם האפשרות קיימת — תומך ✅',
+    ],
+    alt:{t:'💡 בדיקת EID דרך חייגן',s:'פתח חייגן ← הקלד <span class="path">*#06#</span><br>מופיע <strong>EID</strong>? = תומך eSIM ✅'}
+  },
+  generic:{
+    title:'בדיקה כללית — כל מכשיר אנדרואיד',
+    steps:[
+      'פתח את <strong>הגדרות</strong> ⚙️',
+      'חפש <span class="path">רשת</span> / <span class="path">SIM</span> / <span class="path">חיבורים</span>',
+      'חפש <strong>eSIM</strong> / <strong>SIM דיגיטלי</strong>',
+      'אם האפשרות קיימת — המכשיר תומך ✅',
+    ],
+    alt:{t:'💡 שיטת EID — הכי מהיר',s:'פתח חייגן ← הקלד <span class="path">*#06#</span><br>אם מופיע <strong>EID</strong> (32 ספרות) — תומך ✅<br>אם לא — אינו תומך ❌'}
+  }
+};
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function buildSteps(b){
+  const ins=INS[b]||INS.generic;
+  const stHtml=ins.steps.map((s,i)=>`
+    <div class="step">
+      <div class="step-n">${i+1}</div>
+      <div class="step-t">${s}</div>
+    </div>`).join('');
+  const altHtml=ins.alt?`
+    <div class="alt">
+      <div class="alt-t">${ins.alt.t}</div>
+      <div class="alt-s">${ins.alt.s}</div>
+    </div>`:'';
+  return`<div class="slbl">${ins.title}</div>
+    <div class="steps">${stHtml}</div>${altHtml}`;
+}
+
+/* ─── STATE ──────────────────────────────────────── */
+let brand='all', query='';
+
+function render(){
+  const q=query.toLowerCase().trim();
+  const list=D.filter(d=>
+    (brand==='all'||d.b===brand)&&(!q||d.m.toLowerCase().includes(q)||d.b.toLowerCase().includes(q))
+  ).sort((a,b)=>(b.y-a.y)||(b.e-a.e));
+
+  const ok=list.filter(d=>d.e).length;
+  const ri=document.getElementById('rinfo');
+  ri.innerHTML=list.length
+    ?`נמצאו <strong>${list.length}</strong> מכשירים · <strong style="color:#1a7a3c">${ok} תומכים</strong> · <strong style="color:#c0392b">${list.length-ok} לא תומכים</strong>`
+    :'';
+
+  const g=document.getElementById('grid');
+  if(!list.length){
+    g.innerHTML=`<div class="empty"><span class="empty-icon">🔍</span><div class="empty-t">לא נמצאו תוצאות</div><div class="empty-s">נסה שם אחר, או בחר "הכל"</div></div>`;
+    return;
+  }
+  g.innerHTML=list.map(d=>`
+    <div class="card ${d.e?'ok':'no'}" data-b="${esc(d.b)}" data-m="${esc(d.m)}">
+      <div class="brand-logo">${logo(d.b)}</div>
+      <div class="card-info">
+        <div class="card-model">${esc(d.m)}</div>
+        <div class="card-brand">${esc(d.b)} · ${d.y}</div>
+      </div>
+      <div class="card-badge ${d.e?'ok':'no'}">${d.e?'✅ תומך':'❌ לא תומך'}</div>
+    </div>`).join('');
+}
+
+/* ─── MODAL ──────────────────────────────────────── */
+function open(){
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function close(){
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function showDevice(b,m){
+  const dev=D.find(d=>d.b===b&&d.m===m);
+  if(!dev)return;
+  const ok=dev.e;
+  const cta = CTA_URL;
+
+  let html=`
+    <div class="m-hero">
+      <div class="m-brand-logo">${logo(dev.b,36)}</div><br>
+      <div class="m-status-badge ${ok?'ok':'no'}">${ok?'✅ המכשיר תומך ב-eSIM':'❌ המכשיר אינו תומך ב-eSIM'}</div>
+      <div class="m-model">${esc(dev.b)} ${esc(dev.m)}</div>
+      <div class="m-meta">${esc(dev.b)} · ${dev.y}</div>
+    </div>`;
+
+  if(!ok){
+    html+=`<div class="m-no">
+      <div class="m-no-t">לא ניתן להשתמש ב-eSIM במכשיר זה</div>
+      <div class="m-no-s"><strong>${esc(dev.b)} ${esc(dev.m)}</strong> (${dev.y}) אינו כולל שבב eSIM מובנה.<br>💡 דגמים חדשים יותר של ${esc(dev.b)} כן תומכים ב-eSIM — חפש למעלה.</div>
+      <div style="text-align:center;margin-top:12px">
+        <a class="support-btn" href="${SUPPORT_URL}" target="_blank" rel="noopener">
+          <img src="https://cdn.simpleicons.org/whatsapp/25D366" alt="WhatsApp">
+          לא בטוח? דבר עם התמיכה שלנו
+        </a>
+      </div>
+    </div>`;
+  }
+
+  html+=buildSteps(b);
+
+  if(ok){
+    html+=`<div class="m-cta">
+      <div class="m-cta-s">המכשיר שלך מוכן — קנה eSIM גלובלי עכשיו 🌍</div>
+      <a class="m-cta-btn" href="${esc(cta)}" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;opacity:.8"><path d="M18 2h-8.17L4 7.83V22h16V2h-2zm0 18H6V8.66L9.66 5H18v15z"/><rect x="8" y="10" width="8" height="2"/><rect x="8" y="14" width="8" height="2"/></svg>
+        קנה eSIM ב-SimTLV ←
+      </a>
+    </div>`;
+  }
+
+  document.getElementById('mbody').innerHTML=html;
+  document.getElementById('modal').scrollTop=0;
+  open();
+}
+
+function showGeneric(){
+  const ins=INS.generic;
+  const stHtml=ins.steps.map((s,i)=>`<div class="step"><div class="step-n">${i+1}</div><div class="step-t">${s}</div></div>`).join('');
+  const html=`
+    <div class="m-hero">
+      <div class="m-brand-logo">🔍</div>
+      <div class="m-model">בדיקה כללית</div>
+      <div class="m-meta">עובד על כל מכשיר אנדרואיד</div>
+    </div>
+    <div class="slbl">${ins.title}</div>
+    <div class="steps">${stHtml}</div>
+    <div class="alt"><div class="alt-t">${ins.alt.t}</div><div class="alt-s">${ins.alt.s}</div></div>
+    <div class="m-cta">
+      <div class="m-cta-s">המכשיר תומך? קנה eSIM עכשיו 🌍</div>
+      <a class="m-cta-btn" href="${CTA_URL}" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;opacity:.8"><path d="M18 2h-8.17L4 7.83V22h16V2h-2zm0 18H6V8.66L9.66 5H18v15z"/><rect x="8" y="10" width="8" height="2"/><rect x="8" y="14" width="8" height="2"/></svg>
+        קנה eSIM ב-SimTLV ←
+      </a>
+    </div>`;
+  document.getElementById('mbody').innerHTML=html;
+  document.getElementById('modal').scrollTop=0;
+  open();
+}
+
+/* ─── EVENTS ─────────────────────────────────────── */
+const searchEl=document.getElementById('search');
+const searchX=document.getElementById('searchX');
+searchEl.addEventListener('input',function(){
+  query=this.value;
+  searchX.classList.toggle('on',query.length>0);
+  render();
+});
+searchX.addEventListener('click',()=>{
+  searchEl.value='';query='';
+  searchX.classList.remove('on');
+  searchEl.focus();render();
+});
+
+document.getElementById('brands').addEventListener('click',e=>{
+  const btn=e.target.closest('.brand-btn');
+  if(!btn)return;
+  brand=btn.dataset.brand;
+  document.querySelectorAll('.brand-btn').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+});
+
+document.getElementById('grid').addEventListener('click',e=>{
+  const card=e.target.closest('.card');
+  if(card)showDevice(card.dataset.b,card.dataset.m);
+});
+
+document.querySelectorAll('.chip').forEach(c=>{
+  c.addEventListener('click',function(){
+    if(this.dataset.generic){showGeneric();return}
+    if(this.dataset.fb){
+      brand=this.dataset.fb;
+      const tab=document.querySelector(`.brand-btn[data-brand="${brand}"]`);
+      document.querySelectorAll('.brand-btn').forEach(t=>t.classList.remove('active'));
+      if(tab)tab.classList.add('active');
+      render();
+    }
+  });
+});
+
+document.getElementById('mclose').addEventListener('click',close);
+document.getElementById('overlay').addEventListener('click',e=>{if(e.target===document.getElementById('overlay'))close()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+
+// Set support button href
+var sb=document.getElementById('js-support-btn');
+if(sb) sb.href=SUPPORT_URL;
+
+render();
+</script>
+</body>
+</html>

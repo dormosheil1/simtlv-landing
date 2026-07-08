@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMTLV | אפליקציית eSIM — קליטה מרגע הנחיתה</title>
+<meta name="description" content="eSIM אחד לכל העולם. תשלום לפי שימוש עם יתרה שנשמרת לנצח, או חבילות GigaBoost במחיר קבוע. קליטה מרגע הנחיתה ב-168 מדינות, תמיכה אנושית בעברית.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<symbol id="i-plane" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol>
+<symbol id="i-wifi" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></symbol>
+<symbol id="i-card" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+<symbol id="i-infinity" viewBox="0 0 24 24"><path d="M18.178 8c-2.98 0-4.088 2.65-6.178 4-2.09-1.35-3.198-4-6.178-4a4 4 0 0 0 0 8c2.98 0 4.088-2.65 6.178-4 2.09 1.35 3.198 4 6.178 4a4 4 0 0 0 0-8z"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+<symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.1 1.6 5.9L0 24l6.4-1.7c1.7.9 3.6 1.4 5.6 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 0 1-1.5-5.3C2.2 6.5 6.6 2.1 12 2.1c2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.9-9.8 9.9zm5.4-7.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.5.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.3z"/></symbol>
+<symbol id="i-google" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></symbol>
+<symbol id="i-apple" viewBox="0 0 24 24"><path fill="currentColor" d="M16.365 1.43c0 1.14-.42 2.2-1.12 2.99-.77.87-2.03 1.54-3.05 1.46-.13-1.1.43-2.27 1.09-3 .74-.83 2.05-1.44 3.08-1.45zM20.9 17.13c-.56 1.3-.83 1.88-1.55 3.02-1 1.6-2.42 3.6-4.18 3.6-1.56.02-1.96-.99-4.07-.98-2.1.01-2.55 1-4.11.97-1.76-.03-3.1-1.83-4.1-3.43C1.9 17.9 1.5 14.1 3.28 11.5c1.02-1.5 2.63-2.45 4.32-2.45 1.72 0 2.8 1 4.22 1 1.38 0 2.22-1 4.21-1 1.5 0 3.1.82 4.23 2.24-3.72 2.04-3.12 7.35.64 8.84z"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M4 2.5c-.3.2-.5.5-.5.9v17.2c0 .4.2.7.5.9l9.6-9.5L4 2.5zm11 8.1l2.6-2.6-9.4-5.4 6.8 8zm0 2.8l-6.8 8 9.4-5.4-2.6-2.6zm1.5-1.4l3-1.7c.6-.4.6-1.2 0-1.6l-3-1.7L14.8 12l1.7 1.9z"/></symbol>
+<symbol id="i-call" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+</svg>
+
+<div id="progress"></div>
+<div class="promobar">🎁 <b>15% הנחה</b> לרכישה ראשונה עם הקוד <b>APP15</b> · למימוש באפליקציה</div>
+
+<header><div class="wrap"><nav>
+  <a href="#"><img class="logo-img" src="assets/logo.png" alt="SIMTLV"></a>
+  <div class="navlinks">
+    <a href="#packages">סוגי חבילות</a><a href="#how">איך זה עובד</a><a href="#dest">יעדים</a><a href="#pricing">מחירים</a><a href="#checker">בדיקת תאימות</a><a href="#faq">שאלות</a>
+  </div>
+  <div class="nav-r">
+    <a class="phone-link" href="tel:0723959737">072-395-9737</a>
+    <a class="btn btn-primary magnetic" href="#download">הורדת האפליקציה</a>
+    <button class="burger" onclick="document.querySelector('.navlinks').style.display='flex'">☰</button>
+  </div>
+</nav></div></header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="aurora"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+  <div class="dotgrid"></div>
+  <svg class="arcs" viewBox="0 0 1200 700" preserveAspectRatio="none">
+    <path class="p1" d="M -50 480 Q 400 180 1250 360"/>
+    <path class="p2" d="M -50 250 Q 500 620 1250 220"/>
+    <path class="p3" d="M 100 640 Q 650 300 1150 560"/>
+  </svg>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hbadge reveal"><svg class="gicon" viewBox="0 0 48 48"><use href="#i-google"/></svg> <b>5.0</b> <span class="stars">★★★★★</span> · 100,000+ מטיילים</div>
+      <h1 class="reveal">eSIM אחד,<br><span class="grad">לכל העולם</span></h1>
+      <p class="sub reveal">קליטה מרגע הנחיתה ב-168 מדינות. תשלום לפי שימוש עם יתרה שנשמרת לנצח — או חבילת GigaBoost קבועה. הכול מאפליקציה אחת.</p>
+      <div class="dsearch reveal">
+        <div class="fld"><svg class="ic"><use href="#i-search"/></svg><input id="heroSearch" autocomplete="off" placeholder="לאן טסים? הקלידו שם מדינה…"></div>
+        <a class="btn btn-primary go magnetic" href="#pricing">מצאו לי חבילה</a>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+      <div class="nosub reveal">✓ אין דמי מנוי · ✓ אין אותיות קטנות · ✓ טוענים מתי שרוצים</div>
+      <div class="stores reveal">
+        <a class="storebadge" href="#download"><svg viewBox="0 0 24 24" class="sic"><use href="#i-apple"/></svg><span><small>הורדה ל-</small><b>App Store</b></span></a>
+        <a class="storebadge" href="#download"><svg viewBox="0 0 24 24" class="sic"><use href="#i-play"/></svg><span><small>הורדה ל-</small><b>Google Play</b></span></a>
+      </div>
+      <div class="hero-trust reveal">
+        <span><b>168</b> מדינות</span><span><b>מ-$1.99</b> לג׳יגה</span><span>תמיכה <b>אנושית</b> בעברית</span>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="pglow"></div>
+      <img class="phone" src="assets/hero-app-new.png" alt="אפליקציית SIMTLV">
+      <div class="floatimg fi1" data-depth="20" data-rot="-4"><img src="assets/dest-santorini.jpg" alt="סנטוריני"><span class="cap">🇬🇷 סנטוריני</span></div>
+      <div class="floatimg fi2" data-depth="34" data-rot="3"><img src="assets/dest-tokyo.jpg" alt="טוקיו"><span class="cap">🇯🇵 טוקיו</span></div>
+      <div class="floatimg fi3" data-depth="14" data-rot="-3"><img src="assets/dest-thailand.jpg" alt="תאילנד"><span class="cap">🇹🇭 תאילנד</span></div>
+      <div class="gchip" style="top:40%;right:-8%" data-depth="26" data-rot="2"><span class="stars">★</span> 5.0 בגוגל</div>
+    </div>
+  </div>
+  <div class="scrollhint">גללו לגלות ↓</div>
+</section>
+
+<div class="marquee"><div class="track" id="mtrack"></div></div>
+
+<section class="rate-bar"><div class="wrap rate-row">
+  <div class="rate"><span class="stars">★★★★★</span> <b>5.0</b> Google · 3,000+ ביקורות</div>
+  <div class="rate"><svg class="ic" style="color:var(--purple);font-size:1.3rem"><use href="#i-globe"/></svg> <b>168</b> מדינות בכיסוי</div>
+  <div class="rate"><svg class="ic" style="color:var(--coral);font-size:1.3rem"><use href="#i-chat"/></svg> תמיכה <b>אנושית</b> בעברית</div>
+  <div class="rate"><svg class="ic" style="color:var(--purple);font-size:1.3rem"><use href="#i-phone"/></svg> <b>100K+</b> משתמשים</div>
+</div></section>
+
+<!-- GOOGLE REVIEWS BAR -->
+<section class="revbar"><div class="wrap center">
+  <div class="revbar-head"><svg class="gicon" viewBox="0 0 48 48"><use href="#i-google"/></svg> <b>5.0</b> <span class="stars">★★★★★</span> · 3,000+ ביקורות אמיתיות ומאומתות בגוגל</div>
+</div><div class="revmarquee"><div class="revtrack" id="revtrack"></div></div></section>
+
+<!-- FEATURES -->
+<section class="section" id="features"><div class="wrap center">
+  <span class="eyebrow reveal"><svg class="ic"><use href="#i-plane"/></svg> למה SIMTLV</span>
+  <h2 class="reveal">כל מה שצריך לגלישה בחו״ל</h2>
+  <p class="lead reveal">אפליקציה אחת, בעברית מלאה, שמלווה אתכם מהתכנון ועד הנחיתה.</p>
+  <div class="fgrid">
+    <div class="fcard reveal"><div class="ic"><svg class="ic"><use href="#i-wifi"/></svg></div><h3>קליטה מרגע הנחיתה</h3><p>הכרטיס מופעל מראש — הטלפון נדלק ויש אינטרנט ברשת המקומית החזקה ביותר.</p></div>
+    <div class="fcard reveal"><div class="ic"><svg class="ic"><use href="#i-globe"/></svg></div><h3>eSIM אחד ל-168 מדינות</h3><p>חבילה אחת שמכסה את כל היעדים בטיול — בלי להחליף כרטיס ובלי התקנות חוזרות.</p></div>
+    <div class="fcard reveal"><div class="ic"><svg class="ic"><use href="#i-infinity"/></svg></div><h3>יתרה שנשמרת לנצח</h3><p>בארנק — תשלום לפי שימוש בפועל. הקרדיט שלא נוצל נשמר לכם לטיול הבא, לתמיד.</p></div>
+    <div class="fcard reveal"><div class="ic"><svg class="ic"><use href="#i-wifi"/></svg></div><h3>הרשתות המובילות בכל יעד</h3><p>מתחברים תמיד לרשת המקומית החזקה והמהירה ביותר — 5G/4G איכותי, ואפשר גם לשתף Hotspot.</p></div>
+    <div class="fcard reveal"><div class="ic"><svg class="ic"><use href="#i-chat"/></svg></div><h3>ה-WhatsApp ממשיך לעבוד</h3><p>גולשים איתנו וה-WhatsApp עובד כרגיל עם המספר הישראלי. רוצים גם שיחות? יש אפשרות להוסיף הרחבה לשיחות למספר הישראלי.</p></div>
+    <div class="fcard reveal"><div class="ic"><svg class="ic"><use href="#i-refresh"/></svg></div><h3>טעינה בלחיצה</h3><p>נגמרה הגלישה? מוסיפים נפח מיד מהאפליקציה עם Apple Pay / Google Pay.</p></div>
+  </div>
+</div></section>
+
+<!-- PACKAGE TYPES -->
+<section class="section pkgs" id="packages"><div class="wrap center">
+  <span class="eyebrow reveal">2 סוגי חבילות · עובדות ביחד</span>
+  <h2 class="reveal">GigaBoost + ארנק</h2>
+  <p class="lead reveal">אפשר להשתמש בשתיהן במקביל — והמערכת מנהלת את זה אוטומטית בשבילכם. הכול על eSIM אחד, ל-168 מדינות.</p>
+  <div class="pkg-grid">
+    <div class="pkg giga reveal">
+      <div class="top"><div class="pic"><svg class="ic"><use href="#i-zap"/></svg></div><div><h3>GigaBoost</h3><div class="tagline">חבילת גלישה במחיר קבוע</div></div></div>
+      <p class="desc">בוחרים כמות ג׳יגה ותוקף ל-30 יום, ומשלמים מחיר קבוע וידוע מראש. יודעים בדיוק כמה גולשים וכמה זה עולה — בלי הפתעות.</p>
+      <ul>
+        <li><svg class="ic"><use href="#i-check"/></svg> מחיר קבוע וסגור מראש</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> חבילות מ-1GB ועד 50GB, ל-30 יום</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> eSIM אחד שמכסה את כל יעדי הטיול</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> אפשר להוסיף נפח באמצע בלחיצה</li>
+      </ul>
+      <div class="when">מתי לבחור? <b>לטיול מתוכנן</b> שבו אתם יודעים בערך כמה תגלשו ורוצים שקט נפשי במחיר סגור.</div>
+    </div>
+    <div class="pkg wallet reveal">
+      <div class="top"><div class="pic"><svg class="ic"><use href="#i-card"/></svg></div><div><h3>ארנק — תשלום לפי שימוש</h3><div class="tagline">משלמים רק על מה שגולשים</div></div></div>
+      <p class="desc">טוענים קרדיט לארנק פעם אחת, ומשלמים רק על הגלישה שבאמת ניצלתם — לפי תעריף המדינה, החל מ-$1.99 לג׳יגה. היתרה נשמרת לנצח ומחכה לטיול הבא.</p>
+      <ul>
+        <li><svg class="ic"><use href="#i-check"/></svg> חיוב לפי שימוש בפועל, מ-$1.99/GB</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> היתרה נשמרת לכל החיים — לא פגה</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> אותו ארנק ל-168 מדינות</li>
+        <li><svg class="ic"><use href="#i-check"/></svg> שקיפות מלאה — רואים יתרה ותעריף בזמן אמת</li>
+      </ul>
+      <div class="when">מתי לבחור? <b>לטיולים ספונטניים</b> או שימוש קל, כשרוצים גמישות מלאה ולא לשלם על מה שלא ניצלתם.</div>
+    </div>
+  </div>
+  <div class="pkg-note reveal"><svg class="ic"><use href="#i-refresh"/></svg><div><b>עובדות ביחד, אוטומטית:</b> אם אתם ביעד שמכוסה על ידי חבילת GigaBoost פעילה — המערכת גולשת ממנה קודם. רק כשאין חבילה מתאימה ליעד, היא מנצלת את יתרת הארנק. אתם אף פעם לא משלמים כפול.</div></div>
+</div></section>
+
+<!-- PHYSICAL SIM -->
+<section class="section physical" id="physical"><div class="wrap phys-grid">
+  <div class="reveal">
+    <span class="eyebrow"><svg class="ic"><use href="#i-card"/></svg> גם סים פיזי</span>
+    <h2>מעדיפים סים פיזי? גם הוא מתחבר לאפליקציה</h2>
+    <p class="lead" style="margin-inline:0">רוכשים כרטיס <b>SIMTLV Global</b> פיזי, מקשרים אותו לאפליקציה — ונהנים מאותם מחירי ה-eSIM המשתלמים גם על הסים הפיזי. הפתרון המושלם למכשירים שלא תומכים ב-eSIM.</p>
+    <ul class="phys-list">
+      <li>אותם תעריפים משתלמים בדיוק כמו ה-eSIM</li>
+      <li>ניהול מלא מהאפליקציה — יתרה, טעינות וחבילות</li>
+      <li>סים אחד שנשאר איתכם לכל החיים, ל-168 מדינות</li>
+      <li>קליטה מרגע הנחיתה, בלי החלפת כרטיסים בכל טיול</li>
+    </ul>
+    <a class="btn btn-primary magnetic" href="#download">להזמנת סים פיזי ←</a>
+  </div>
+  <div class="phys-visual reveal"><img src="assets/sim-physical.png" alt="סים פיזי SIMTLV Global"></div>
+</div></section>
+
+<!-- STEPS -->
+<section class="section steps" id="how"><div class="wrap center">
+  <span class="eyebrow reveal">3 צעדים פשוטים</span>
+  <h2 class="reveal">3 צעדים ואתם מחוברים</h2>
+  <div class="sgrid">
+    <div class="step reveal"><div class="num">1</div><div class="lbl">שלב 1</div><h3>בוחרים יעד וחבילה</h3><p>מחפשים את המדינות, המערכת מציגה את החבילה המשתלמת ביותר.</p><img src="assets/m-home-front.png" alt="בחירת יעד"></div>
+    <div class="step reveal"><div class="num">2</div><div class="lbl">שלב 2</div><h3>מקבלים את הסים</h3><p>eSIM עם קוד QR תוך דקות — בלי משלוח ובלי להחליף כרטיס.</p><img src="assets/m-qr.png" alt="קוד QR"></div>
+    <div class="step reveal"><div class="num">3</div><div class="lbl">שלב 3</div><h3>נוחתים, גולשים ועוקבים</h3><p>מדליקים את הטלפון ויש אינטרנט. עוקבים אחרי נתוני החבילה והיתרה בזמן אמת.</p><img src="assets/m-usage.png" alt="נתוני חבילה בשימוש"></div>
+  </div>
+</div></section>
+
+<!-- MID-PAGE 15% BANNER -->
+<section class="promoband"><div class="wrap pb-grid">
+  <div class="pb-text reveal">
+    <h2><span class="grad">15% הנחה</span></h2>
+    <h3>לרכישה ראשונה באפליקציה</h3>
+    <p>הורידו את האפליקציה, קבלו קוד הטבה אישי — והפעילו eSIM ל-168 מדינות תוך 60 שניות.</p>
+    <div class="pb-coupon">🎟️ קוד הטבה: <button class="pb-code" onclick="copyCode(this,'APP15')"><span>APP15</span> <svg class="ic"><use href="#i-copy"/></svg></button></div>
+    <div class="pb-note">* למימוש באפליקציה בלבד. הקוד ניתן לשימוש חד-פעמי ברכישה הראשונה.</div>
+    <div class="pb-cta">
+      <a class="btn btn-primary magnetic" href="#download">הורדת האפליקציה ←</a>
+      <span class="pb-rate"><span class="stars">★★★★★</span> 5.0 · 100K+ משתמשים</span>
+    </div>
+  </div>
+  <div class="pb-visual reveal">
+    <div class="pb-sticker">15%<small>OFF</small></div>
+    <img src="assets/hero-app-new.png" alt="SIMTLV">
+    <div class="pb-pill p1">🇲🇪 מונטנגרו <b>$1.99</b></div>
+    <div class="pb-pill p2">🇬🇷 יוון <b>$2.42</b></div>
+    <div class="pb-pill p3">🇺🇸 ארה״ב <b>$2.52</b></div>
+  </div>
+</div></section>
+
+<!-- DESTINATIONS -->
+<section class="section dest" id="dest"><div class="wrap center">
+  <span class="eyebrow reveal"><svg class="ic"><use href="#i-pin"/></svg> יעדים פופולריים</span>
+  <h2 class="reveal">לאן טסים?</h2>
+  <p class="lead reveal">כיסוי ב-168 מדינות ברשתות המובילות — הנה כמה מהיעדים המבוקשים.</p>
+  <div class="dgrid">
+    <div class="dcard reveal"><img src="assets/dest-nyc.jpg" alt="ארה״ב"><div class="ov"><div class="cn">🇺🇸 ארה״ב</div><div class="fr">מ-$2.49 לג׳יגה</div></div></div>
+    <div class="dcard reveal"><img src="assets/dest-santorini.jpg" alt="יוון"><div class="ov"><div class="cn">🇬🇷 יוון</div><div class="fr">מ-$2.49 לג׳יגה</div></div></div>
+    <div class="dcard reveal"><img src="assets/dest-thailand.jpg" alt="תאילנד"><div class="ov"><div class="cn">🇹🇭 תאילנד</div><div class="fr">מ-$3.90 לג׳יגה</div></div></div>
+    <div class="dcard reveal"><img src="assets/dest-dubai.jpg" alt="דובאי"><div class="ov"><div class="cn">🇦🇪 דובאי</div><div class="fr">מ-$4.90 לג׳יגה</div></div></div>
+    <div class="dcard reveal"><img src="assets/dest-paris.jpg" alt="צרפת"><div class="ov"><div class="cn">🇫🇷 צרפת</div><div class="fr">מ-$2.49 לג׳יגה</div></div></div>
+    <div class="dcard reveal"><img src="assets/dest-tokyo.jpg" alt="יפן"><div class="ov"><div class="cn">🇯🇵 יפן</div><div class="fr">מ-$3.90 לג׳יגה</div></div></div>
+  </div>
+</div></section>
+
+<!-- PRICING -->
+<section class="section pricing" id="pricing"><div class="wrap center">
+  <span class="eyebrow reveal">חבילות GigaBoost</span>
+  <h2 class="reveal">מחירים שקופים, בלי אותיות קטנות</h2>
+  <p class="lead reveal">המחירים <b>החל מ-</b> ומשתנים לפי יעד. חבילות ל-30 יום, והיתרה שלא נוצלה נשמרת לטיול הבא.</p>
+  <div class="pr-grid">
+    <div class="pr-visual reveal"><img src="assets/m-plans.png" alt="מסך חבילות GigaBoost"></div>
+    <div>
+      <div class="plans">
+        <div class="plan reveal"><div class="gb">1 GB</div><div class="days">30 יום</div><div class="pr">מ-$2.49</div></div>
+        <div class="plan reveal"><div class="gb">3 GB</div><div class="days">30 יום</div><div class="pr">מ-$6.99</div></div>
+        <div class="plan pop reveal"><div class="tag">הכי פופולרי</div><div class="gb">5 GB</div><div class="days">30 יום</div><div class="pr">מ-$10.99</div></div>
+        <div class="plan reveal"><div class="gb">10 GB</div><div class="days">30 יום</div><div class="pr">מ-$20.99</div></div>
+      </div>
+      <p class="pr-note reveal">💡 מעדיפים גמישות? עם <b>הארנק</b> משלמים לפי שימוש בפועל, מ-$1.99 לג׳יגה, והיתרה נשמרת לנצח.</p>
+      <a class="btn btn-ghost magnetic reveal" href="https://app.simtlv.co.il/pricing" target="_blank" rel="noopener" style="margin-top:18px"><svg class="ic"><use href="#i-globe"/></svg> לכל המחירים לפי יעד ←</a>
+    </div>
+  </div>
+</div></section>
+
+<!-- APP -->
+<section class="section appsec" id="app"><div class="wrap app-grid">
+  <div class="reveal">
+    <span class="eyebrow"><svg class="ic"><use href="#i-phone"/></svg> אפליקציית SIMTLV</span>
+    <h2>הכול מכף היד — ארנק חכם ל-eSIM</h2>
+    <p style="color:var(--muted);font-size:1.1rem;margin-top:12px">מעקב צריכה בזמן אמת, טעינות מהירות, ומועדון SIMTLV Miles עם בונוסים על כל טעינה והפניה.</p>
+    <ul class="app-list">
+      <li><svg class="ic"><use href="#i-check"/></svg> שתי דרכי תשלום: GigaBoost קבוע או ארנק לפי שימוש</li>
+      <li><svg class="ic"><use href="#i-check"/></svg> יתרה שנשמרת לנצח — הכסף לא הולך לאיבוד</li>
+      <li><svg class="ic"><use href="#i-check"/></svg> תשלום עם Apple Pay / Google Pay</li>
+    </ul>
+    <div class="store">
+      <a class="store-btn magnetic" href="#download"><svg class="ic" style="font-size:1.5rem"><use href="#i-phone"/></svg><span class="big">App Store<small style="display:block">הורדה ל-iPhone</small></span></a>
+      <a class="store-btn magnetic" href="#download"><svg class="ic" style="font-size:1.5rem"><use href="#i-phone"/></svg><span class="big">Google Play<small style="display:block">הורדה ל-Android</small></span></a>
+    </div>
+    <div class="coupon" id="coupon" data-code="APP15">
+      <div><div class="ctop">🎁 15% הנחה לרכישה ראשונה</div><div class="csub">למימוש באפליקציה בלבד</div></div>
+      <button class="ccode" onclick="copyCoupon()" title="העתקת הקוד"><span id="ccodeText">APP15</span> <svg class="ic"><use href="#i-copy"/></svg></button>
+    </div>
+  </div>
+  <div class="app-visual reveal"><img src="assets/m-plans-angled.png" alt="מסך האפליקציה"></div>
+</div></section>
+
+<!-- CLUB -->
+<section class="section club" id="club"><div class="wrap club-grid">
+  <div class="reveal">
+    <span class="eyebrow" style="background:rgba(255,255,255,.14);color:#e7d9ff">🎖️ מועדון SIMTLV Miles</span>
+    <h2>כל טעינה מזכה אתכם</h2>
+    <p class="lead">חברי מועדון SIMTLV Miles צוברים הטבות על כל שימוש — וממשיכים לחסוך בכל טיול.</p>
+    <ul class="club-list">
+      <li><span class="em">💰</span> בונוס גלישה מתנה על כל טעינה</li>
+      <li><span class="em">👋</span> מיילים על כל חבר שתפנו — והם מקבלים הנחה</li>
+      <li><span class="em">⭐</span> מחירים והטבות בלעדיים לחברי המועדון</li>
+      <li><span class="em">🎁</span> הצטרפות אוטומטית וחינם עם הורדת האפליקציה</li>
+    </ul>
+    <a class="btn btn-primary magnetic" href="#download" style="margin-top:12px">הצטרפו עכשיו · חינם</a>
+  </div>
+  <div class="club-badge reveal"><div class="m">🎖️</div><div class="t">SIMTLV Miles</div><div class="s">מועדון הנוסעים</div></div>
+</div></section>
+
+<!-- CHECKER -->
+<section class="section checker" id="checker"><div class="wrap center">
+  <span class="eyebrow reveal"><svg class="ic"><use href="#i-shield"/></svg> בדיקת תאימות</span>
+  <h2 class="reveal">האם המכשיר שלכם תומך ב-eSIM?</h2>
+  <p class="lead reveal">בדקו תוך שנייה מתוך מאגר של 200+ דגמים — לפני שאתם טסים.</p>
+  <div class="chkframe reveal"><iframe src="assets/checker.html" title="בדיקת תאימות eSIM" loading="lazy"></iframe></div>
+  <div class="phys-callout reveal"><span>📱 המכשיר לא תומך ב-eSIM? <b>אין בעיה — יש לנו גם סים פיזי!</b> אותם מחירים, מתחבר לאפליקציה.</span><a class="btn btn-ghost magnetic" href="#physical">לסים הפיזי ←</a></div>
+</div></section>
+
+<!-- PAYG PRICES -->
+<section class="section payg" id="payg"><div class="wrap center">
+  <span class="eyebrow reveal"><svg class="ic"><use href="#i-card"/></svg> תשלום לפי שימוש · הארנק</span>
+  <h2 class="reveal">תעריפי גלישה לפי יעד</h2>
+  <p class="lead reveal">בארנק משלמים רק על מה שגלשתם, לפי תעריף המדינה — <b>תמיד ברשתות המובילות והמהירות בכל יעד</b>. הנה כמה יעדים מבוקשים; התעריף המלא ל-168 מדינות באפליקציה.</p>
+  <div class="payg-grid">
+    <div class="payg-row hot reveal"><span class="pf">🇲🇪 מונטנגרו</span><span class="pp">$1.99 <small>/GB</small></span></div>
+    <div class="payg-row reveal"><span class="pf">🇺🇸 ארה״ב</span><span class="pp">$2.49 <small>/GB</small></span></div>
+    <div class="payg-row reveal"><span class="pf">🇬🇷 יוון</span><span class="pp">$2.49 <small>/GB</small></span></div>
+    <div class="payg-row reveal"><span class="pf">🇬🇧 בריטניה</span><span class="pp">$2.49 <small>/GB</small></span></div>
+    <div class="payg-row reveal"><span class="pf">🇫🇷 צרפת</span><span class="pp">$2.49 <small>/GB</small></span></div>
+    <div class="payg-row reveal"><span class="pf">🇮🇹 איטליה</span><span class="pp">$2.49 <small>/GB</small></span></div>
+    <div class="payg-row reveal"><span class="pf">🇹🇭 תאילנד</span><span class="pp">$3.90 <small>/GB</small></span></div>
+    <div class="payg-row reveal"><span class="pf">🇯🇵 יפן</span><span class="pp">$3.90 <small>/GB</small></span></div>
+    <div class="payg-row reveal"><span class="pf">🇦🇪 דובאי</span><span class="pp">$4.90 <small>/GB</small></span></div>
+  </div>
+  <a class="btn btn-primary magnetic reveal" href="https://app.simtlv.co.il/pricing" target="_blank" rel="noopener" style="margin-top:28px"><svg class="ic"><use href="#i-globe"/></svg> לכל התעריפים · 168 מדינות ←</a>
+</div></section>
+
+<!-- DATA CALCULATOR -->
+<section class="section calc" id="calc"><div class="wrap center">
+  <span class="eyebrow reveal"><svg class="ic"><use href="#i-zap"/></svg> מחשבון גלישה</span>
+  <h2 class="reveal">כמה גלישה תקבלו?</h2>
+  <p class="lead reveal">הזינו סכום לטעינה ובחרו יעד — ונחשב לכם כמה ג׳יגה זה נותן בתשלום לפי שימוש.</p>
+  <div class="calc-box reveal">
+    <div class="calc-row">
+      <label>סכום לטעינה<div class="cinp"><span class="cur">$</span><input type="number" id="calcAmount" min="1" step="1" value="20"></div></label>
+      <label>יעד<select id="calcDest"></select></label>
+    </div>
+    <div class="calc-out" id="calcOut"></div>
+    <div class="calc-note">* היתרה נשמרת לנצח — גם אם לא תנצלו הכול בטיול הזה, ותוכלו להשתמש בה גם ביעד אחר.</div>
+  </div>
+</div></section>
+
+<!-- REVIEWS -->
+<section class="section reviews" id="reviews"><div class="wrap center">
+  <span class="eyebrow reveal">מה לקוחות מספרים?</span>
+  <h2 class="reveal">מטיילים כבר לא יוצאים בלעדינו</h2>
+  <div class="reveal"><div class="google"><span class="stars">★★★★★</span> 5.0 · 3,000+ ביקורות בגוגל · מעל 100,000 משתמשים</div></div>
+  <div class="rgrid">
+    <div class="rcard reveal"><div class="stars">★★★★★</div><p>״לא פעם ראשונה שאני משתמש. חיבור מעולה. גלישה ללא תקיעות. בחירה מצוינת, תודה.״</p><div class="who"><div class="av">ע</div><div><b>עופר אשכנזי</b><small class="verified">✓ ביקורת מאומתת</small></div></div></div>
+    <div class="rcard reveal"><div class="stars">★★★★★</div><p>״שימוש מאוד נוח בסים, קל להוסיף ג׳יגה בעת הצורך. תמיכת מוקד השירות באמצעות ווטסאפ — מצוינת.״</p><div class="who"><div class="av">R</div><div><b>Raya Reshef</b><small class="verified">✓ ביקורת מאומתת</small></div></div></div>
+    <div class="rcard reveal"><div class="stars">★★★★★</div><p>״קל, מהיר וידידותי למשתמש במחיר סביר!! השירות ניתן בכל זמן נתון עד פתרון הבעיה. מפתיע לטובה!!״</p><div class="who"><div class="av">א</div><div><b>אבי גבע</b><small class="verified">✓ ביקורת מאומתת</small></div></div></div>
+  </div>
+</div></section>
+
+<!-- FAQ -->
+<section class="section faq" id="faq"><div class="wrap center">
+  <span class="eyebrow reveal">שאלות ותשובות</span>
+  <h2 class="reveal">כל מה שרציתם לדעת</h2>
+  <div class="acc">
+    <div class="qa reveal"><button>מה ההבדל בין GigaBoost לארנק? <span class="plus">+</span></button><div class="a"><p>GigaBoost היא חבילת גלישה במחיר קבוע ל-30 יום — יודעים מראש כמה משלמים. הארנק הוא תשלום לפי שימוש: טוענים קרדיט ומשלמים רק על מה שגולשים בפועל (מ-$1.99/GB), והיתרה נשמרת לנצח. אפשר להחזיק את שתיהן במקביל — והמערכת מתעדפת אוטומטית: אם יש חבילת GigaBoost פעילה שמכסה את היעד, גולשים ממנה קודם, ורק אז מהארנק.</p></div></div>
+    <div class="qa reveal"><button>האם תהיה לי קליטה מרגע הנחיתה? <span class="plus">+</span></button><div class="a"><p>כן! הכרטיסים מופעלים מראש — ברגע שהמטוס נוחת והטלפון נדלק, יש קליטה וגלישה ברשת המקומית החזקה ביותר, בלי הגדרות מסובכות.</p></div></div>
+    <div class="qa reveal"><button>האם מספר ה-WhatsApp שלי ימשיך לעבוד? <span class="plus">+</span></button><div class="a"><p>בהחלט. ה-WhatsApp ממשיך לעבוד עם המספר הישראלי הקיים שלכם, גם כשאתם גולשים עם הסים שלנו בחו״ל.</p></div></div>
+    <div class="qa reveal"><button>אני טס לכמה מדינות, צריך חבילה לכל מדינה? <span class="plus">+</span></button><div class="a"><p>לא! בוחרים את כל המדינות בחיפוש — והמערכת מציגה חבילה אחת שמכסה את כולן. eSIM אחד, חבילה אחת, כל הטיול.</p></div></div>
+    <div class="qa reveal"><button>איך יודעים כמה גלישה נשארה? <span class="plus">+</span></button><div class="a"><p>באפליקציה, במסך ״ה-eSIM שלי״, רואים את היתרה בזמן אמת. נשלחת גם התראה כשמתקרבים לסיום הנפח.</p></div></div>
+    <div class="qa reveal"><button>מה קורה לקרדיט שלא ניצלתי בארנק? <span class="plus">+</span></button><div class="a"><p>הוא נשמר לנצח. הקרדיט בארנק לא פג — הוא מחכה לכם לטיול הבא, ב-168 המדינות.</p></div></div>
+    <div class="qa reveal"><button>אפשר לבטל עסקה? <span class="plus">+</span></button><div class="a"><p>כן — ניתן לבטל בתוך 14 יום כל עוד לא נעשה שימוש בחבילה, בהתאם לחוק הגנת הצרכן.</p></div></div>
+    <div class="qa reveal"><button>החיוב בדולר או בשקל? <span class="plus">+</span></button><div class="a"><p>המחירים מוצגים בדולר, והחיוב מתבצע בשקלים לפי שער הדולר היציג ביום הרכישה.</p></div></div>
+  </div>
+</div></section>
+
+<!-- CTA -->
+<section class="section cta" id="download"><div class="wrap cta-grid">
+  <div class="reveal">
+    <h2>מוכנים לטיול הבא?</h2>
+    <p>הורידו את SIMTLV, התקינו eSIM תוך דקות, ותהיו מחוברים ברגע שנוחתים — ב-168 מדינות. קליטה מרגע הנחיתה ✈️</p>
+    <div class="store">
+      <a class="store-btn magnetic" href="#"><svg class="ic" style="font-size:1.5rem"><use href="#i-phone"/></svg><span class="big">App Store<small style="display:block">הורדה ל-iPhone</small></span></a>
+      <a class="store-btn magnetic" href="#"><svg class="ic" style="font-size:1.5rem"><use href="#i-phone"/></svg><span class="big">Google Play<small style="display:block">הורדה ל-Android</small></span></a>
+    </div>
+  </div>
+  <div class="cta-visual reveal"><img src="assets/hand-home.png" alt="SIMTLV ביד"></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="fcols">
+    <div><img class="flogo" src="assets/logo.png" alt="SIMTLV">
+      <p style="margin-top:14px;max-width:280px">חבילות גלישה לחו״ל — SIM ו-eSIM ל-168 מדינות. קליטה מרגע הנחיתה, שירות אנושי בעברית.</p>
+      <div class="fcontact">
+        <a href="tel:0723959737"><span class="ico ph"><svg class="ic"><use href="#i-call"/></svg></span> 072-395-9737</a>
+        <a href="https://wa.me/972557050152" target="_blank" rel="noopener"><span class="ico wa"><svg class="sic"><use href="#i-whatsapp"/></svg></span> 055-705-0152</a>
+      </div></div>
+    <div><h4>חבילות פופולריות</h4><ul><li><a href="#">כרטיס סים לארה״ב</a></li><li><a href="#">כרטיס סים לאירופה</a></li><li><a href="#">eSIM לארצות הברית</a></li><li><a href="#">eSIM ליוון</a></li><li><a href="#">סים גלובלי 168 מדינות</a></li></ul></div>
+    <div><h4>מדריכים וכלים</h4><ul><li><a href="#packages">סוגי חבילות</a></li><li><a href="#checker">בדיקת תאימות eSIM</a></li><li><a href="#">בדיקת IMEI לארה״ב</a></li><li><a href="#">מדריך סים לארה״ב</a></li></ul></div>
+    <div><h4>שירות</h4><ul><li><a href="#">צור קשר</a></li><li><a href="#">אודות SIMTLV</a></li><li><a href="#">תנאי שימוש</a></li><li><a href="#">מדיניות פרטיות</a></li><li><a href="#">הצהרת נגישות</a></li></ul></div>
+  </div>
+  <div class="copyright">© 2026 SIMTLV — כל הזכויות שמורות · קליטה מרגע הנחיתה ✈️</div>
+</div></footer>
+
+<a class="wa-fab" href="https://wa.me/972557050152" target="_blank" rel="noopener" aria-label="צ׳אט עם נציג בוואטסאפ"><svg viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg><span class="wa-label">צ׳אט עם נציג</span></a>
+
+<script>
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const prog=document.getElementById('progress'),hdr=document.querySelector('header');
+addEventListener('scroll',()=>{const h=document.documentElement,st=h.scrollTop,mx=h.scrollHeight-h.clientHeight;prog.style.width=(mx>0?st/mx*100:0)+'%';hdr.classList.toggle('scrolled',st>window.innerHeight*0.82);},{passive:true});
+
+const flags=[['🇺🇸','ארה״ב'],['🇬🇷','יוון'],['🇮🇹','איטליה'],['🇫🇷','צרפת'],['🇩🇪','גרמניה'],['🇹🇭','תאילנד'],['🇪🇸','ספרד'],['🇬🇧','בריטניה'],['🇨🇭','שווייץ'],['🇳🇱','הולנד'],['🇵🇹','פורטוגל'],['🇯🇵','יפן'],['🇦🇪','דובאי'],['🇨🇾','קפריסין'],['🇷🇴','רומניה'],['🇦🇹','אוסטריה']];
+const row=flags.map(f=>`<span><span class="fl">${f[0]}</span>${f[1]}</span>`).join('');
+document.getElementById('mtrack').innerHTML=row+row;
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const sibs=[...e.target.parentElement.children].filter(c=>c.classList.contains('reveal'));const i=sibs.indexOf(e.target);e.target.style.transitionDelay=(i>0?Math.min(i,8)*60:0)+'ms';e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+if(!reduce){
+  const hero=document.querySelector('.hero'),vf=document.querySelector('.hero-visual .phone'),gcards=document.querySelectorAll('.floatimg,.gchip');
+  gcards.forEach(c=>{if(c.dataset.rot)c.style.transform='rotate('+c.dataset.rot+'deg)';});
+  hero.addEventListener('mousemove',e=>{const r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;vf.style.transform=`rotateY(${x*8}deg) rotateX(${-y*8}deg)`;gcards.forEach(c=>{const d=+(c.dataset.depth||24),rt=c.dataset.rot||0;c.style.transform=`translate(${x*d}px,${y*d}px) rotate(${rt}deg)`;});});
+  hero.addEventListener('mouseleave',()=>{vf.style.transform='';gcards.forEach(c=>{c.style.transform=c.dataset.rot?'rotate('+c.dataset.rot+'deg)':'';});});
+  document.querySelectorAll('.magnetic').forEach(b=>{b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.3}px,${(e.clientY-r.top-r.height/2)*.4}px)`;});b.addEventListener('mouseleave',()=>b.style.transform='');});
+}
+document.querySelectorAll('.btn').forEach(b=>b.addEventListener('click',e=>{const r=b.getBoundingClientRect(),s=document.createElement('span');s.className='rip';s.style.left=(e.clientX-r.left)+'px';s.style.top=(e.clientY-r.top)+'px';b.appendChild(s);setTimeout(()=>s.remove(),600);}));
+document.querySelectorAll('.qa button').forEach(b=>b.addEventListener('click',()=>{const qa=b.parentElement;document.querySelectorAll('.qa').forEach(x=>{if(x!==qa)x.classList.remove('open')});qa.classList.toggle('open');}));
+
+/* friendly WhatsApp prefilled message */
+(function(){var w=document.querySelector('.wa-fab');if(w)w.href='https://wa.me/972557050152?text='+encodeURIComponent('היי 👋 יש לי שאלה על ה-eSIM של SIMTLV, אשמח לדבר עם נציג 🙂');})();
+
+/* copy coupon code */
+function copyCoupon(){
+  var box=document.getElementById('coupon'),code=box.dataset.code,t=document.getElementById('ccodeText'),o=t.textContent;
+  try{navigator.clipboard.writeText(code);}catch(e){}
+  t.textContent='הקוד הועתק ✓';setTimeout(function(){t.textContent=o;},1600);
+}
+
+/* generic coupon copy (banner) */
+function copyCode(btn,code){try{navigator.clipboard.writeText(code);}catch(e){}var s=btn.querySelector('span'),o=s.textContent;s.textContent='הועתק ✓';setTimeout(function(){s.textContent=o;},1500);}
+
+/* shared destinations dataset — country, flag, GigaBoost/PAYG $ per GB */
+var DESTS=[['מונטנגרו','🇲🇪',1.99],['ארה״ב','🇺🇸',2.49],['יוון','🇬🇷',2.49],['איטליה','🇮🇹',2.49],['בריטניה','🇬🇧',2.49],['צרפת','🇫🇷',2.49],['ספרד','🇪🇸',2.49],['גרמניה','🇩🇪',2.49],['הולנד','🇳🇱',2.49],['שווייץ','🇨🇭',2.49],['פורטוגל','🇵🇹',2.49],['קפריסין','🇨🇾',2.49],['אוסטריה','🇦🇹',2.49],['תאילנד','🇹🇭',3.90],['יפן','🇯🇵',3.90],['טורקיה','🇹🇷',3.90],['גאורגיה','🇬🇪',3.90],['דובאי','🇦🇪',4.90]];
+
+/* hero destination search — live results + GigaBoost price */
+(function(){
+  var hs=document.getElementById('heroSearch'),sr=document.getElementById('searchResults');if(!hs)return;
+  function render(){
+    var q=hs.value.trim();
+    if(!q){sr.classList.remove('show');return;}
+    var list=DESTS.filter(function(d){return d[0].indexOf(q)>-1;}).slice(0,7);
+    if(!list.length){sr.innerHTML='<div class="sr-empty">לא נמצא — כל 168 היעדים זמינים באפליקציה</div>';}
+    else{sr.innerHTML=list.map(function(d){return '<a class="sr-item" href="#pricing"><span class="c"><span class="fl">'+d[1]+'</span>'+d[0]+'</span><span class="pr">מ-$'+d[2].toFixed(2)+' <small>/GB · GigaBoost</small></span></a>';}).join('');}
+    sr.classList.add('show');
+  }
+  hs.addEventListener('input',render);hs.addEventListener('focus',render);
+  document.addEventListener('click',function(e){if(!e.target.closest('.dsearch'))sr.classList.remove('show');});
+})();
+
+/* data calculator — $ amount + destination rate => GB */
+(function(){
+  var amt=document.getElementById('calcAmount'),sel=document.getElementById('calcDest'),out=document.getElementById('calcOut');if(!amt)return;
+  sel.innerHTML=DESTS.map(function(d){return '<option value="'+d[2]+'">'+d[1]+' '+d[0]+' — $'+d[2].toFixed(2)+'/GB</option>';}).join('');
+  function calc(){var a=parseFloat(amt.value)||0,r=parseFloat(sel.value)||1.99,gb=r>0?a/r:0;out.innerHTML=a>0?('ב-$'+a+' תקבלו כ־<b>'+gb.toFixed(1)+' GB</b>'):'הזינו סכום כדי לחשב';}
+  amt.addEventListener('input',calc);sel.addEventListener('change',calc);calc();
+})();
+
+/* google reviews marquee */
+(function(){
+  var t=document.getElementById('revtrack');if(!t)return;
+  var R=[['עופר אשכנזי','לא פעם ראשונה שאני משתמש. חיבור מעולה. גלישה ללא תקיעות.'],['Raya Reshef','שימוש מאוד נוח, קל להוסיף ג׳יגה. תמיכת השירות בווטסאפ מצוינת.'],['אבי גבע','קל, מהיר וידידותי במחיר סביר!! מפתיע לטובה!!'],['אילן שמשי','הדלקתי ומיד התחבר לרשת מעולה. שווה את הכסף.'],['gil goshen','מקצוענים. אדיבים. סבלנים. אפס תקלות.'],['יש גל','שירות לקוחות פשוט מעולה. זמין וברור.']];
+  var h=R.map(function(r){return '<div class="revcard"><div class="top"><span class="stars">★★★★★</span><svg class="gicon g" viewBox="0 0 48 48"><use href="#i-google"/></svg></div><p>“'+r[1]+'”</p><div class="who"><span class="av">'+r[0][0]+'</span><span><b>'+r[0]+'</b><small>✓ מאומת בגוגל</small></span></div></div>';}).join('');
+  t.innerHTML=h+h;
+})();
+</script>
+</body>
+</html>
