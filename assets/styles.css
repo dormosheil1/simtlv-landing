@@ -418,3 +418,9 @@ footer h4{color:#fff;margin-bottom:13px;font-size:1.02rem}footer ul{list-style:n
 .ptable .fl{font-size:1.2rem;margin-left:6px}
 .modal-foot{padding:14px 26px;background:var(--soft);color:var(--muted);font-size:.85rem;text-align:center;border-top:1px solid var(--line)}
 @media(max-width:560px){.modal-head h3{font-size:1.2rem}.ptable td.net{font-size:.8rem}}
+
+/* wider container for checker */
+.wrap-wide{max-width:1380px;margin:0 auto;padding:0 22px}
+.checker .chkframe{max-width:none;margin-top:34px}
+.checker .chkframe iframe{height:760px}
+.pkg .buy{display:inline-flex;margin-top:16px;width:100%;justify-content:center}
