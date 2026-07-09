@@ -57,9 +57,16 @@
     <path class="p3" d="M 100 640 Q 650 300 1150 560"/>
   </svg>
   <svg class="planefly" viewBox="0 0 1200 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="trailg" gradientUnits="userSpaceOnUse" x1="-96" y1="0" x2="6" y2="0">
+        <stop offset="0" stop-color="#7c5cbf" stop-opacity="0"/>
+        <stop offset="1" stop-color="#e8704a" stop-opacity=".42"/>
+      </linearGradient>
+    </defs>
     <g class="pl">
-      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" transform="scale(1.45) translate(-12,-12)"/>
-      <animateMotion path="M -140 250 Q 460 20 1340 110" dur="18s" repeatCount="indefinite" rotate="auto"/>
+      <rect x="-98" y="-1.2" width="100" height="2.4" rx="1.2" fill="url(#trailg)"/>
+      <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" transform="scale(1.55) rotate(90) translate(-12 -12)"/>
+      <animateMotion path="M -170 250 Q 460 20 1360 110" dur="21s" repeatCount="indefinite" rotate="auto"/>
     </g>
   </svg>
   <div class="wrap hero-grid">
