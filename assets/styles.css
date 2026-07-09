@@ -424,3 +424,9 @@ footer h4{color:#fff;margin-bottom:13px;font-size:1.02rem}footer ul{list-style:n
 .checker .chkframe{max-width:none;margin-top:34px}
 .checker .chkframe iframe{height:760px}
 .pkg .buy{display:inline-flex;margin-top:16px;width:100%;justify-content:center}
+
+/* flying plane in hero */
+.planefly{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
+.planefly .pl path{fill:#e8704a;filter:drop-shadow(0 3px 7px rgba(232,112,74,.5))}
+.hero .arcs path{stroke-opacity:.55}
+@media (prefers-reduced-motion:reduce){.planefly{display:none}}
