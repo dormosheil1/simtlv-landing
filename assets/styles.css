@@ -440,3 +440,6 @@ footer h4{color:#fff;margin-bottom:13px;font-size:1.02rem}footer ul{list-style:n
 .hero .arcs path{stroke-opacity:.55}
 @media(max-width:620px){.planefly-img{width:104px;top:94px}}
 @media (prefers-reduced-motion:reduce){.planefly-img{display:none}}
+
+/* clamp horizontal overflow (e.g. animated plane exiting viewport) so mobile viewport never expands */
+html{overflow-x:hidden;max-width:100%}
