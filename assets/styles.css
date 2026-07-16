@@ -220,7 +220,7 @@ nav{display:flex;align-items:center;justify-content:space-between;height:70px}
 .app-list li{padding:10px 0;font-size:1.1rem;display:flex;gap:12px;align-items:flex-start;color:#463b63}.app-list svg{color:#22c55e;flex:0 0 auto;margin-top:5px}
 .store{display:flex;gap:13px;flex-wrap:wrap;margin-top:6px}
 .store-btn{display:flex;align-items:center;gap:10px;background:#fff;color:#12081f;padding:12px 22px;border-radius:14px;font-weight:700;transition:transform .2s}.store-btn:hover{transform:translateY(-3px)}.store-btn .big{font-size:1.08rem;line-height:1}.store-btn small{opacity:.7;font-size:.72rem;font-weight:500}
-.app-visual{text-align:center}.app-visual img{max-height:540px;margin:0 auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,.5))}
+.app-visual{text-align:center}.app-visual img{max-height:560px;margin:0 auto}
 .gift{margin-top:18px;background:rgba(232,112,74,.16);border:1px solid rgba(232,112,74,.4);padding:11px 17px;border-radius:14px;font-weight:600;display:inline-flex;gap:8px;align-items:center}
 .coupon{margin-top:20px;display:inline-flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:rgba(255,255,255,.1);border:1.5px dashed rgba(255,255,255,.55);border-radius:16px;padding:14px 18px}
 .coupon .ctop{font-weight:700}.coupon .csub{font-size:.84rem;opacity:.8;margin-top:2px}
@@ -348,7 +348,8 @@ footer h4{color:#fff;margin-bottom:13px;font-size:1.02rem}footer ul{list-style:n
   .hero h1{font-size:clamp(2rem,10vw,2.6rem)}.hero p.sub{font-size:1.08rem}
   .fgrid,.sgrid,.rgrid,.fcols{grid-template-columns:1fr}.sgrid::before{display:none}
   .dgrid{grid-template-columns:repeat(2,1fr)}.plans,.chk .rlist{grid-template-columns:repeat(2,1fr)}
-  .rate-row{gap:24px}.section{padding:62px 0}.cta-visual,.app-visual,.pr-visual{display:none}
+  .rate-row{gap:24px}.section{padding:62px 0}.cta-visual{display:none}
+  .app-visual img,.pr-visual img{max-height:390px}.pkg-visual{max-width:320px;margin-top:34px}
   .ctable{font-size:.82rem}.ctable th,.ctable td{padding:11px 8px}
 }
 
@@ -443,3 +444,8 @@ footer h4{color:#fff;margin-bottom:13px;font-size:1.02rem}footer ul{list-style:n
 
 /* clamp horizontal overflow (e.g. animated plane exiting viewport) so mobile viewport never expands */
 html{overflow-x:hidden;max-width:100%}
+
+/* multi-device composition in packages section */
+.pkg-visual{margin:46px auto 0;max-width:440px}
+.pkg-visual img{width:100%;height:auto;display:block}
+.pr-visual img,.app-visual img,.pkg-visual img{max-width:100%}
